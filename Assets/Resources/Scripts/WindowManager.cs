@@ -97,37 +97,29 @@ public class WindowManager
             return;
         }
 
-        int tempIndex = path.LastIndexOf("/");
-        if (tempIndex >= 0)
+        string name = path;
+        if (mOpenWindows.ContainsKey(name))
         {
-            string name = path.Substring(tempIndex + 1);
-            if (mOpenWindows.ContainsKey(name))
-            {
-                Debug.LogError("This window is existed!!");
-                return;
-            }
+            Debug.LogError("This window is existed!!");
+            return;
+        }
 
-            GameObject tmpObj = null;
-            if (mLoadwindows.ContainsKey(name))
-            {
-                tmpObj= mLoadwindows[name];
-            }
-            else
-            {
-                tmpObj = LoadWindow(path);
-            }
-            mOpenWindows.Add(name, tmpObj);
-            mOpenPanel.Add(name, tmpObj.GetComponent<UIPanel>());
-            mOpenDepth.Add(name, GetWindowPanel(tmpObj).depth);
-            GameObject tgo = GameObject.Instantiate(tmpObj, mUIRootObj.transform);
-            tgo.layer = LayerMask.NameToLayer("UI");
-            MoveWindowToFront(name);
+        GameObject tmpObj = null;
+        if (mLoadwindows.ContainsKey(name))
+        {
+            tmpObj = mLoadwindows[name];
         }
         else
         {
-            Debug.LogError("Open Window path error!!");
-            return;
+            tmpObj = LoadWindow(path);
         }
+        mOpenWindows.Add(name, tmpObj);
+        mOpenPanel.Add(name, tmpObj.GetComponent<UIPanel>());
+        mOpenDepth.Add(name, GetWindowPanel(tmpObj).depth);
+        GameObject tgo = GameObject.Instantiate(tmpObj, mUIRootObj.transform);
+        tgo.layer = LayerMask.NameToLayer("UI");
+        MoveWindowToFront(name);
+
     }
 
     /// <summary>

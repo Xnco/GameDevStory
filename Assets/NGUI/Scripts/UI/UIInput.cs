@@ -536,7 +536,7 @@ public class UIInput : MonoBehaviour
 	/// Selection event, sent by the EventSystem.
 	/// </summary>
 
-	protected virtual void OnSelect (bool isSelected)
+    protected virtual void OnSelect (bool isSelected)
 	{
 		if (isSelected)
 		{
