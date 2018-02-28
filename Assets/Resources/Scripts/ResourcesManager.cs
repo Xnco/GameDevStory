@@ -26,6 +26,7 @@ public class ResourcesManager
     List<GameType> mAllType;
     List<Platform> mAllPlatform;
     List<Staff> mAllStaff;
+    List<Job> mAllJob;
 
     // 读取游戏类型和内容
     public void LoadGameInfo()
@@ -125,6 +126,16 @@ public class ResourcesManager
     // 读取职业信息
     public void LoadJobInfo()
     {
+        mAllJob = new List<Job>();
+
+#if UNITY_EDITOR
+        string path = Application.dataPath + "/StreamingAssets/Xml/Job.xml";
+#elif UNITY_ANDROID
+        string path = Application.streamingAssetsPath + "/Xml/Job.xml";
+#endif
+
+        XmlDocument xd = new XmlDocument();
+        xd.Load(path);
 
     }
 
