@@ -122,6 +122,12 @@ public class ResourcesManager
         }
     }
 
+    // 读取职业信息
+    public void LoadJobInfo()
+    {
+
+    }
+
     // 读取员工信息
     public void LoadStaffInfo()
     {
