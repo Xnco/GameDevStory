@@ -110,7 +110,7 @@ public class ResourcesManager
             tmpP.mLicense = int.Parse(pxn.SelectSingleNode("License").InnerText);
             tmpP.mSales = int.Parse(pxn.SelectSingleNode("Sales").InnerText);
             tmpP.mCost = int.Parse(pxn.SelectSingleNode("Cost").InnerText);
-            tmpP.mDevCost = int.Parse(pxn.SelectSingleNode("DevCost").InnerText);
+            tmpP.mDevMult = int.Parse(pxn.SelectSingleNode("DevMult").InnerText);
 
             string[] times = pxn.SelectSingleNode("Time").InnerText.Split('-');
             tmpP.mCreateYear = int.Parse(times[0]);

@@ -12,7 +12,7 @@ namespace GDS
         public int mLicense;    // 版权费
         public int mSales;
         public int mCost;       // 开发基础费用
-        public int mDevCost; // 开发费用系数
+        public int mDevMult; // 开发费用系数 - 影响开发游戏的费用
         public int mCreateYear;
         public int mCreateMonth;
         public int mCreateWeek;
