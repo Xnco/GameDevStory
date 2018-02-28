@@ -18,7 +18,8 @@ public class Job
 {
     public JobType mType;
     public int mLevel;     // 等级
-    public float mCurExp;    // 当前职业经验
+    public float mCurExp;    // 当前职业经验          
+    public int mMaxLevel;   // 最高级
     public JobLevelUpInfo mInfo; // 职业信息
 }
 
@@ -30,8 +31,6 @@ public struct JobInfo
 
 public struct JobLevelUpInfo
 {
-    // 下一级， 如果为0说明当前为最高级
-    public int mNextLevel;
     // 升级需要经验
     public float mNeedExp;
 

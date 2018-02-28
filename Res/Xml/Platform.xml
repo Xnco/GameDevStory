@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Platforms>
+    <Platform>
+        <Name>PC</Name>
+        <Co>M$</Co>
+        <Sales>51</Sales>
+        <Cost>0</Cost>
+        <Time>00-00-0<Time>
+        <License>100</License>
+        <DevCost>1</DevCost>
+        <Used>0</Used>
+    </Platform>
+</Platforms>

@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Platform
+{
+
+}
+
 public enum GameGenre
 {
 

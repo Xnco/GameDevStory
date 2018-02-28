@@ -10,6 +10,9 @@ public class Company
 
     private List<Staff> mStaffList;
     private List<Game> mGame;
+    private List<GameGenre> mGenre;
+    private List<GameType> mGameType;
+    private List<Platform> mPlatform;
 
     private int TopSales;
 }
