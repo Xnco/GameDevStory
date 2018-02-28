@@ -2,10 +2,9 @@
 
     <GerenList>
         <Geren>
-            <Num>1001</Num>
+            <Num>301</Num>
             <Name>益智类</Name>
             <Cost>500</Cost>
-            <Level>1</Level>
             <Amazing>
                 <Num>2001</Num>
             </Amazing>
@@ -17,16 +16,14 @@
 
     <TypeList>
         <Type>
-            <Num>2001</Num>
+            <Num>401</Num>
             <Name>黑白棋</Name>
             <Cost>350</Cost>
-            <Level>1</Level>
         </Type>
         <Type>
             <Num>2002</Num>
             <Name>马拉松</Name>
             <Cost>300</Cost>
-            <Level>1</Level>
         </Type>
     </TypeList>
 
