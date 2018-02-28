@@ -12,7 +12,7 @@ namespace GDS
         private float mSalary;      // 薪水
         private float mPower;      // 体力
 
-        // 四维
+        // 基本四维
         private float mProgram;     // 编程
         private float mMaxProgram;
         private float mScenario;    // 脚本
@@ -23,16 +23,16 @@ namespace GDS
         private float mMaxSound;
 
         // 隐性属性
-        private float mTalent;      // 天赋, 隐藏思维加成
+        private float mTalent;      // 天赋, 隐藏四维加成
         private float mDiligent;    // 勤奋程度, 影响工作频率
-        private float mEffectiveness;   // 效率, 影响工作速度
+        private float mEffect;   // 效率, 影响工作速度
         private int mStrata;    // 阶层, 影响招人渠道
 
         public float pProgram
         {
             get
             {
-                // 显示能力为 人物能力 + 职业加成能力
+                // 显示能力为 人物能力 + 职业加成能力 + ...
                 return mProgram + mCurJob.mInfo.mProgram;
             }
         }

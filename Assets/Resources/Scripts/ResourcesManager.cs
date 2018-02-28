@@ -25,6 +25,7 @@ public class ResourcesManager
     List<GameGenre> mAllGenre;
     List<GameType> mAllType;
     List<Platform> mAllPlatform;
+    List<Staff> mAllStaff;
 
     // 读取游戏类型和内容
     public void LoadGameInfo()
@@ -94,7 +95,7 @@ public class ResourcesManager
 #if UNITY_EDITOR
         string path = Application.dataPath + "/StreamingAssets/Xml/Platform.xml";
 #elif UNITY_ANDROID
-        string path = Application.streamingAssetsPath + "/Xml/GameInfo.xml";
+        string path = Application.streamingAssetsPath + "/Xml/Platform.xml";
 #endif
 
         XmlDocument xd = new XmlDocument();
@@ -121,5 +122,53 @@ public class ResourcesManager
         }
     }
 
-    //public void Load
+    // 读取员工信息
+    public void LoadStaffInfo()
+    {
+        mAllStaff = new List<Staff>();
+
+#if UNITY_EDITOR
+        string path = Application.dataPath + "/StreamingAssets/Xml/Staff.xml";
+#elif UNITY_ANDROID
+        string path = Application.streamingAssetsPath + "/Xml/Staff.xml";
+#endif
+
+        XmlDocument xd = new XmlDocument();
+        xd.Load(path);
+
+        XmlNodeList slist = xd.SelectNodes("StaffList/Staff");
+        foreach (XmlNode sxn in slist)
+        {
+            //Staff staff = new Staff();
+
+            //int.Parse(sxn.SelectSingleNode("Num").InnerText);
+            //sxn.SelectSingleNode("Name").InnerText;
+            //sxn.SelectSingleNode("CurJob").InnerText;
+
+            XmlNodeList jobs = sxn.SelectNodes("JobList/Job");
+            foreach (XmlNode job in jobs)
+            {
+                //job.SelectSingleNode("Num").InnerText;
+                //job.SelectSingleNode("Lv").InnerText;
+            }
+
+            //sxn.SelectSingleNode("Salary").InnerText;
+            //sxn.SelectSingleNode("Power").InnerText;
+
+            //sxn.SelectSingleNode("Program").InnerText;
+            //sxn.SelectSingleNode("MaxProgram").InnerText;
+            //sxn.SelectSingleNode("Scenario").InnerText;
+            //sxn.SelectSingleNode("MaxScenario").InnerText;
+            //sxn.SelectSingleNode("Graphics").InnerText;
+            //sxn.SelectSingleNode("MaxGraphics").InnerText;
+            //sxn.SelectSingleNode("Sound").InnerText;
+            //sxn.SelectSingleNode("MaxSound").InnerText;
+
+            //sxn.SelectSingleNode("Talent").InnerText;
+            //sxn.SelectSingleNode("Diligent").InnerText;
+            //sxn.SelectSingleNode("Effect").InnerText;
+            //sxn.SelectSingleNode("Strata");
+        }
+
+    }
 }

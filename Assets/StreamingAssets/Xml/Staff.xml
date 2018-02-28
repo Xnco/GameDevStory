@@ -16,13 +16,20 @@
         </JobList>
         <Salary>10</Salary>
         <Power>6</Power>
+
         <Program>5</Program>
         <Scenario>5</Scenario>
         <Graphics>3</Graphics>
         <Sound>3</Sound>
+
+        <MaxProgram>5</MaxProgram>
+        <MaxScenario>5</MaxScenario>
+        <MaxGraphics>3</MaxGraphics>
+        <MaxSound>3</MaxSound>
+
         <Talent>1</Talent>
         <Diligent>1</Diligent>
-        <Effectiveness>1</Effectiveness>
+        <Effect>1</Effect>
         <Strata>1</Strata>
     </Staff>
 </StaffList>
