@@ -19,20 +19,23 @@ public class ResourcesManager
 
     private ResourcesManager()
     {
-
+        LoadGameInfo();
+        LoadPlatform();
+        LoadJobInfo();
+        LoadStaffInfo();
     }
 
-    List<GameGenre> mAllGenre;
-    List<GameType> mAllType;
-    List<Platform> mAllPlatform;
-    List<JobInfo> mAllJob;
-    List<Staff> mAllStaff;
+    Dictionary<int, GameGenre> mAllGenre;
+    Dictionary<int, GameType> mAllType;
+    Dictionary<int, Platform> mAllPlatform;
+    Dictionary<int, JobInfo> mAllJob;
+    Dictionary<int, Staff> mAllStaff;
 
     // 读取游戏类型和内容
     public void LoadGameInfo()
     {
-        mAllGenre = new List<GameGenre>();
-        mAllType = new List<GameType>();
+        mAllGenre = new Dictionary<int, GameGenre>();
+        mAllType = new Dictionary<int, GameType>();
 
 #if UNITY_EDITOR
         string path = Application.dataPath + "/StreamingAssets/Xml/GameInfo.xml";
@@ -43,7 +46,7 @@ public class ResourcesManager
         XmlDocument xd = new XmlDocument();
         xd.Load(path);
 
-        #region 得到所有的类型
+        #region 得到所有的'类型'
         XmlNodeList glist = xd.SelectNodes("GameInfo/GerenList/Geren");
         foreach (XmlNode gxn in glist)
         {
@@ -70,12 +73,13 @@ public class ResourcesManager
                 gg.mBads.Add(num);
             }
 
-            mAllGenre.Add(gg);
+            mAllGenre.Add(gg.mNum, gg);
         }
         #endregion
 
-        #region 得到所有的内容
-        XmlNodeList tlist = xd.SelectNodes("TypeList/Type");
+        #region 得到所有的'内容'
+
+        XmlNodeList tlist = xd.SelectNodes("GameInfo/TypeList/Type");
         foreach (XmlNode txn in tlist)
         {
             GameType gt = new GameType();
@@ -83,15 +87,15 @@ public class ResourcesManager
             gt.mName = txn.SelectSingleNode("Name").InnerText;
             gt.mCost = int.Parse(txn.SelectSingleNode("Cost").InnerText);
 
-            mAllType.Add(gt);
+            mAllType.Add(gt.mNum, gt);
         }
         #endregion
     }
 
-    // 读取平台信息
+    // 读取平台固定信息
     public void LoadPlatform()
     {
-        mAllPlatform = new List<Platform>();
+        mAllPlatform = new Dictionary<int, Platform>();
 
 #if UNITY_EDITOR
         string path = Application.dataPath + "/StreamingAssets/Xml/Platform.xml";
@@ -119,14 +123,14 @@ public class ResourcesManager
             tmpP.mCreateMonth = int.Parse(times[1]);
             tmpP.mCreateWeek = int.Parse(times[2]);
 
-            mAllPlatform.Add(tmpP);
+            mAllPlatform.Add(tmpP.mNum, tmpP);
         }
     }
 
-    // 读取职业信息
+    // 读取职业固定信息
     public void LoadJobInfo()
     {
-        mAllJob = new List<JobInfo>();
+        mAllJob = new Dictionary<int, JobInfo>();
 
 #if UNITY_EDITOR
         string path = Application.dataPath + "/StreamingAssets/Xml/Job.xml";
@@ -159,13 +163,15 @@ public class ResourcesManager
 
                 ji.mAllLevelInfo.Add(jnlu.mLevel, jnlu);
             }
+
+            mAllJob.Add(ji.mNum, ji);
         }
     }
 
-    // 读取员工信息
+    // 读取员工固定信息
     public void LoadStaffInfo()
     {
-        mAllStaff = new List<Staff>();
+        mAllStaff = new Dictionary<int, Staff>();
 
 #if UNITY_EDITOR
         string path = Application.dataPath + "/StreamingAssets/Xml/Staff.xml";
@@ -181,33 +187,27 @@ public class ResourcesManager
         {
             Staff staff = new Staff();
 
-            //int.Parse(sxn.SelectSingleNode("Num").InnerText);
-            //sxn.SelectSingleNode("Name").InnerText;
-            //sxn.SelectSingleNode("CurJob").InnerText;
+            staff.mNum = int.Parse(sxn.SelectSingleNode("Num").InnerText);
+            staff.mName = sxn.SelectSingleNode("Name").InnerText;
 
-            XmlNodeList jobs = sxn.SelectNodes("JobList/Job");
-            foreach (XmlNode job in jobs)
-            {
-                //job.SelectSingleNode("Num").InnerText;
-                //job.SelectSingleNode("Lv").InnerText;
-            }
+            staff.mSalary = float.Parse(sxn.SelectSingleNode("Salary").InnerText);
+            staff.mPower = float.Parse(sxn.SelectSingleNode("Power").InnerText);
 
-            //sxn.SelectSingleNode("Salary").InnerText;
-            //sxn.SelectSingleNode("Power").InnerText;
+            staff.mProgram = int.Parse(sxn.SelectSingleNode("Program").InnerText);
+            staff.mMaxProgram = int.Parse(sxn.SelectSingleNode("MaxProgram").InnerText);
+            staff.mScenario = int.Parse(sxn.SelectSingleNode("Scenario").InnerText);
+            staff.mMaxScenario = int.Parse(sxn.SelectSingleNode("MaxScenario").InnerText);
+            staff.mGraphics = int.Parse(sxn.SelectSingleNode("Graphics").InnerText);
+            staff.mMaxGraphics = int.Parse(sxn.SelectSingleNode("MaxGraphics").InnerText);
+            staff.mSound = int.Parse(sxn.SelectSingleNode("Sound").InnerText);
+            staff.mMaxSound = int.Parse(sxn.SelectSingleNode("MaxSound").InnerText);
 
-            //sxn.SelectSingleNode("Program").InnerText;
-            //sxn.SelectSingleNode("MaxProgram").InnerText;
-            //sxn.SelectSingleNode("Scenario").InnerText;
-            //sxn.SelectSingleNode("MaxScenario").InnerText;
-            //sxn.SelectSingleNode("Graphics").InnerText;
-            //sxn.SelectSingleNode("MaxGraphics").InnerText;
-            //sxn.SelectSingleNode("Sound").InnerText;
-            //sxn.SelectSingleNode("MaxSound").InnerText;
+            staff.mTalent = float.Parse( sxn.SelectSingleNode("Talent").InnerText);
+            staff.mDiligent = float.Parse(sxn.SelectSingleNode("Diligent").InnerText);
+            staff.mEffect = float.Parse(sxn.SelectSingleNode("Effect").InnerText);
+            staff.mStrata = int.Parse(sxn.SelectSingleNode("Strata").InnerText);
 
-            //sxn.SelectSingleNode("Talent").InnerText;
-            //sxn.SelectSingleNode("Diligent").InnerText;
-            //sxn.SelectSingleNode("Effect").InnerText;
-            //sxn.SelectSingleNode("Strata");
+            mAllStaff.Add(staff.mNum, staff);
         }
 
     }

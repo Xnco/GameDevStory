@@ -3,17 +3,6 @@
     <Staff>
         <Num>10001</Num>
         <Name>张马农</Name>
-        <CurJob>101</CurJob>
-        <JobList>
-            <Job>
-                <Num>101</Num>
-                <Lv>1</Lv>
-            </Job>
-            <Job>
-                <Num>102</Num>
-                <Lv>1</Lv>
-            </Job>
-        </JobList>
         <Salary>10</Salary>
         <Power>6</Power>
 
@@ -22,10 +11,10 @@
         <Graphics>3</Graphics>
         <Sound>3</Sound>
 
-        <MaxProgram>5</MaxProgram>
-        <MaxScenario>5</MaxScenario>
-        <MaxGraphics>3</MaxGraphics>
-        <MaxSound>3</MaxSound>
+        <MaxProgram>50</MaxProgram>
+        <MaxScenario>50</MaxScenario>
+        <MaxGraphics>30</MaxGraphics>
+        <MaxSound>30</MaxSound>
 
         <Talent>1</Talent>
         <Diligent>1</Diligent>

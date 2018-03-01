@@ -60,8 +60,8 @@ public class UIStart : MonoBehaviour
 
     void OpenMain()
     {
-        WindowManager.getSingle().OpenWindow("UI/UIMain");
+        WindowManager.GetSingle().OpenWindow("UI/UIMain");
 
-        WindowManager.getSingle().CloseWindow("UIMain");
+        WindowManager.GetSingle().CloseWindow("UIMain");
     }
 }

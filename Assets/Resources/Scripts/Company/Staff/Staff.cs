@@ -6,27 +6,28 @@ namespace GDS
 {
     public class Staff
     {
-        private string mName;     // 名字
-        private JobInfo mCurJob;     // 职位
-        private List<JobInfo> mJobs;    // 职业生涯
-        private float mSalary;      // 薪水
-        private float mPower;      // 体力
+        public int mNum;        // 编号
+        public string mName;     // 名字
+        public JobInfo mCurJob;     // 职位
+        public List<JobInfo> mJobs;    // 职业生涯
+        public float mSalary;      // 薪水
+        public float mPower;      // 体力
 
         // 基本四维
-        private float mProgram;     // 编程
-        private float mMaxProgram;
-        private float mScenario;    // 脚本
-        private float mMaxScenario;
-        private float mGraphics;    // 图像
-        private float mMaxGraphics;
-        private float mSound;        // 声音
-        private float mMaxSound;
+        public float mProgram;     // 编程
+        public float mMaxProgram;
+        public float mScenario;    // 脚本
+        public float mMaxScenario;
+        public float mGraphics;    // 图像
+        public float mMaxGraphics;
+        public float mSound;        // 声音
+        public float mMaxSound;
 
         // 隐性属性
-        private float mTalent;      // 天赋, 隐藏四维加成
-        private float mDiligent;    // 勤奋程度, 影响工作频率
-        private float mEffect;   // 效率, 影响工作速度
-        private int mStrata;    // 阶层, 影响招人渠道
+        public float mTalent;      // 天赋, 隐藏四维加成
+        public float mDiligent;    // 勤奋程度, 影响工作频率
+        public float mEffect;   // 效率, 影响工作速度
+        public int mStrata;    // 阶层, 影响招人渠道
 
         public float pProgram
         {
