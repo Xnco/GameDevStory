@@ -33,7 +33,7 @@ public class UIStart : MonoBehaviour
         Transform loadBtn = transform.Find("LoadBtn");
         if (loadBtn != null)
         {
-            UIEventListener.Get(startBtn.gameObject).onClick += OnClickLoad;
+            UIEventListener.Get(loadBtn.gameObject).onClick += OnClickLoad;
         }
     }
 
@@ -60,8 +60,8 @@ public class UIStart : MonoBehaviour
 
     void OpenMain()
     {
-        WindowManager.GetSingle().OpenWindow("UI/UIMain");
+        WindowManager.GetSingle().OpenWindow("UI/UIMain/UIMain");
 
-        WindowManager.GetSingle().CloseWindow("UIMain");
+        WindowManager.GetSingle().CloseWindow("UI/UIStart/UIStart");
     }
 }

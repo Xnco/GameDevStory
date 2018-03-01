@@ -7,12 +7,13 @@ public class GameBegin : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        WindowManager.GetSingle().OpenBottom("UI/UIBottom/UIBottom");
+
         // 初始化游戏
         // 加载本地固定的数据 
         ResourcesManager.GetSingle();
         WindowManager.GetSingle().OpenWindow("UI/UIStart/UIStart");
-        WindowManager.GetSingle().OpenWindow("UI/UIBottom/UIBottom");
-
         Destroy(gameObject);
 	}
 	

@@ -71,7 +71,6 @@ public class WindowManager
                 int offset = GetWindowDepth(win);
                 //将自己前面的窗口往后移动offset单位;
                 CurMaxDepth= MoveToBack(win, offset);
-                //将自己往前移动.
                 MoveWinToFront(win);
             }
             return win;
@@ -87,9 +86,7 @@ public class WindowManager
         winObj.transform.SetParent(mWindowRoot.transform);
         winObj.transform.localScale = Vector3.one;
         winObj.SetActive(true);
-        //将自己移动到最前面;
         MoveWinToFront(winObj);
-        //记录打开的窗口;
         mAllWindows.Add(windowPath,winObj);
         return winObj;
 	}
@@ -103,13 +100,9 @@ public class WindowManager
             GameObject win = mAllWindows[windowPath];
             if (win!=null)
             {
-                //获取自己所占用的Panel深度;
                 int offset = GetWindowDepth(win);
-                //将自己前面的窗口往后移动offset单位;
                 CurMaxDepth= MoveToBack(win, offset);
-                //将自己往前移动.
                 MoveWinToFront(win);
-
             }
             if(fun!=null)
                 fun(win);
@@ -128,15 +121,11 @@ public class WindowManager
         winObj.transform.SetParent(mWindowRoot.transform);
         winObj.transform.localScale = Vector3.one;
         winObj.SetActive(true);
-        //将自己移动到最前面;
         MoveWinToFront(winObj);
-        //记录打开的窗口;
         if(!mAllWindows.ContainsKey(windowPath))
             mAllWindows.Add(windowPath,winObj);
         if(fun!=null)
             fun(winObj);
-        
-
     }
         
     //获取一个窗口的占用的深度.
@@ -148,7 +137,6 @@ public class WindowManager
     //获取最大深度;
     public int GetWinsowMaxDepth(GameObject winObj)
     {
-        //获取到这个窗口的所有panel;
         UIPanel[] panels = winObj.GetComponentsInChildren<UIPanel>();
         if (panels != null)
         {
@@ -163,12 +151,10 @@ public class WindowManager
     //获取最小深度;
     public int GetWinsowMinDepth(GameObject winObj)
     {
-        //获取到这个窗口的所有panel;
         UIPanel[] panels = winObj.GetComponentsInChildren<UIPanel>();
         if (panels != null)
         {
             Array.Sort(panels,(x, y) => x.depth.CompareTo(y.depth));
-            //找出最大和最小深度的pannel.
             int min=panels[0].depth;
             return min ;
 
@@ -198,28 +184,22 @@ public class WindowManager
                         {
                             tmpMax = panel.depth;
                         }
-                    }
-
-                   
+                    }                   
                 }
             }
         }
-
         return tmpMax;
     }
 
     //将当前要打开的窗口移动到最前方.
     private void MoveWinToFront(GameObject WinObj)
     {
-        //当前窗口的最小深度.
         int minDepth = GetWinsowMinDepth(WinObj);
-        //需要移动的量.
         int offset = CurMaxDepth - minDepth+1;
         UIPanel[] panels = WinObj.GetComponentsInChildren<UIPanel>();
         foreach (var panel in panels)
         {
             panel.depth += offset;
-            //更新最大深度;
             if (CurMaxDepth < panel.depth)
             {
                 CurMaxDepth = panel.depth;
@@ -246,5 +226,21 @@ public class WindowManager
             GameObject.Destroy(item.Value);
         }
         mAllWindows.Clear();
+    }
+
+    public void OpenBottom(string windowPath)
+    {
+        GameObject obj = Resources.Load<GameObject>(windowPath);
+        if (obj == null)
+        {
+            Debug.Log("加载窗口失败:" + windowPath);
+            return;
+        }
+        Transform cloneTran = obj.transform.GetChild(1);
+        GameObject winObj = GameObject.Instantiate<GameObject>(cloneTran.gameObject);
+        winObj.transform.SetParent(mWindowRoot.transform);
+        winObj.transform.localScale = Vector3.one;
+        winObj.SetActive(true);
+        winObj.GetComponent<UIPanel>().depth = 100;
     }
 }
