@@ -7,8 +7,8 @@ namespace GDS
     public class Staff
     {
         private string mName;     // 名字
-        private Job mCurJob;     // 职位
-        private List<Job> mJobs;    // 职业生涯
+        private JobInfo mCurJob;     // 职位
+        private List<JobInfo> mJobs;    // 职业生涯
         private float mSalary;      // 薪水
         private float mPower;      // 体力
 
@@ -33,7 +33,7 @@ namespace GDS
             get
             {
                 // 显示能力为 人物能力 + 职业加成能力 + ...
-                return mProgram + mCurJob.mInfo.mProgram;
+                return mProgram + mCurJob.pProgram;
             }
         }
     }

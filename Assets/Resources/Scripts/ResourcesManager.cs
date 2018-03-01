@@ -25,8 +25,8 @@ public class ResourcesManager
     List<GameGenre> mAllGenre;
     List<GameType> mAllType;
     List<Platform> mAllPlatform;
+    List<JobInfo> mAllJob;
     List<Staff> mAllStaff;
-    List<Job> mAllJob;
 
     // 读取游戏类型和内容
     public void LoadGameInfo()
@@ -126,7 +126,7 @@ public class ResourcesManager
     // 读取职业信息
     public void LoadJobInfo()
     {
-        mAllJob = new List<Job>();
+        mAllJob = new List<JobInfo>();
 
 #if UNITY_EDITOR
         string path = Application.dataPath + "/StreamingAssets/Xml/Job.xml";
@@ -137,6 +137,29 @@ public class ResourcesManager
         XmlDocument xd = new XmlDocument();
         xd.Load(path);
 
+        XmlNodeList jlist = xd.SelectNodes("JobList/Job");
+        foreach (XmlNode jxn in jlist)
+        {
+            JobInfo ji = new JobInfo();
+            ji.mNum = int.Parse(jxn.SelectSingleNode("Num").InnerText);
+            ji.mName = jxn.SelectSingleNode("Name").InnerText;
+            ji.mMaxLevel = int.Parse(jxn.SelectSingleNode("MaxLv").InnerText);
+
+            ji.mAllLevelInfo = new Dictionary<int, JobLevelUpInfo>();
+            XmlNodeList alljn = jxn.SelectNodes("Info/Lv");
+            foreach (XmlNode tmpI in alljn)
+            {
+                JobLevelUpInfo jnlu = new JobLevelUpInfo();
+                jnlu.mLevel = int.Parse(tmpI.SelectSingleNode("Level").InnerText);
+                jnlu.mNeedExp = int.Parse(tmpI.SelectSingleNode("Exp").InnerText);
+                jnlu.mProgram = int.Parse(tmpI.SelectSingleNode("Program").InnerText);
+                jnlu.mScenario = int.Parse(tmpI.SelectSingleNode("Scenario").InnerText);
+                jnlu.mGraphics = int.Parse(tmpI.SelectSingleNode("Graphics").InnerText);
+                jnlu.mSound = int.Parse(tmpI.SelectSingleNode("Sound").InnerText);
+
+                ji.mAllLevelInfo.Add(jnlu.mLevel, jnlu);
+            }
+        }
     }
 
     // 读取员工信息
@@ -156,7 +179,7 @@ public class ResourcesManager
         XmlNodeList slist = xd.SelectNodes("StaffList/Staff");
         foreach (XmlNode sxn in slist)
         {
-            //Staff staff = new Staff();
+            Staff staff = new Staff();
 
             //int.Parse(sxn.SelectSingleNode("Num").InnerText);
             //sxn.SelectSingleNode("Name").InnerText;
