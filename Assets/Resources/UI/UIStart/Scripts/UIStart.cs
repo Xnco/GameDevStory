@@ -35,6 +35,14 @@ public class UIStart : MonoBehaviour
         {
             UIEventListener.Get(loadBtn.gameObject).onClick += OnClickLoad;
         }
+
+        // 按右边就退出游戏
+        ExData<PE_UpdateBottom> data = new ExData<PE_UpdateBottom>();
+        data.data = new PE_UpdateBottom();
+        data.data.right = "退出游戏";
+        data.data.onClickRight = Quit;
+
+        EventManager.GetSinglon().NotifyEvent((int)PlayerEvent.UpdateBottom, data);
     }
 
     void OnClickOpenCreate(GameObject go)
@@ -46,14 +54,14 @@ public class UIStart : MonoBehaviour
 
     void OnClickCreate(GameObject go)
     {
-        //创建一家新的公司
+        //创建一家新的公司 -> 名字是新的, 加载默认存档
 
         OpenMain();
     }
 
     void OnClickLoad(GameObject go)
     {
-        // 加载存档中的公司
+        // 加载存档中的公司 
 
         OpenMain();
     }
@@ -63,5 +71,10 @@ public class UIStart : MonoBehaviour
         WindowManager.GetSingle().OpenWindow("UI/UIMain/UIMain");
 
         WindowManager.GetSingle().CloseWindow("UI/UIStart/UIStart");
+    }
+
+    void Quit()
+    {
+        Application.Quit();
     }
 }

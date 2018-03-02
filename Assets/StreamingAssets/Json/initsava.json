@@ -1,0 +1,70 @@
+{
+    "Name":"",
+
+    "Time":{
+        "CurYear":1,
+        "CurMonty":1,
+        "CurWeek":1,
+        "CurDay":1
+    },
+
+    "Gold":500000,
+
+    "Staff":[
+        {
+            "Num":10001, 
+            "Level":1, 
+            "Exp":0, 
+            "Jobs":[
+                {
+                    "Num":101,
+                    "Level":1,
+                    "Exp":0
+                },
+                {
+                    "Num":102,
+                    "Level":1,
+                    "Exp":0
+                }
+            ]
+        },
+        {
+            "Num":10002, 
+            "Level":1, 
+            "Exp":0, 
+            "Jobs":[
+                {
+                    "Num":101,
+                    "Level":1,
+                    "Exp":0
+                },
+                {
+                    "Num":102,
+                    "Level":1,
+                    "Exp":0
+                }
+            ]
+        }
+    ],
+
+    "GameGenre":[
+        { "Num":301, "Level":1 }
+    ],
+
+    "GameType":[
+        { "Num":401, "Level":1 }
+    ],
+
+    "Platform":[
+        {"Num":201, "GameCount":0}
+    ],
+
+    "Game":[
+        {}
+    ],
+
+    "Fans":[
+        
+    ]
+
+}

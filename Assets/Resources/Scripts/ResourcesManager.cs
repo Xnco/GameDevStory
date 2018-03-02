@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 using GDS;
 
 public class ResourcesManager
@@ -211,4 +212,14 @@ public class ResourcesManager
         }
 
     }
+
+    public void LoadNewSava()
+    {
+        string path = Application.dataPath + "/StreamingAssets/Json/NewSavs.json";
+    }
+}
+
+public class JsonParser
+{
+    public string Name;
 }

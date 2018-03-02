@@ -6,6 +6,22 @@ namespace GDS
 {
     public class Company
     {
+        private static Company instance;
+
+        public static Company GetSingle()
+        {
+            if (instance == null)
+            {
+                instance = new Company();
+            }
+            return instance;
+        }
+
+        private Company()
+        {
+
+        }
+
         public string mName;
         private int mPopularity;
         private int mGold;
