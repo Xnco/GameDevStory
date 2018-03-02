@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.IO;
+using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,9 @@ public class ResourcesManager
         LoadPlatform();
         LoadJobInfo();
         LoadStaffInfo();
+
+        // 读取 json
+        LoadNewSava();
     }
 
     Dictionary<int, GameGenre> mAllGenre;
@@ -215,11 +219,18 @@ public class ResourcesManager
 
     public void LoadNewSava()
     {
-        string path = Application.dataPath + "/StreamingAssets/Json/NewSavs.json";
+        string path = Application.dataPath + "/StreamingAssets/Json/initsava.json";
+
+        StreamReader sr = new StreamReader(path);
+        string jsontext = sr.ReadToEnd();
+
+        JsonParser jp = JsonConvert.DeserializeObject<JsonParser>(jsontext);
+        Debug.Log(jp.Gold);
     }
 }
 
 public class JsonParser
 {
     public string Name;
+    public int Gold;
 }
