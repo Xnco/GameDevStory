@@ -28,15 +28,15 @@
         <Salary>10</Salary>
         <Power>6</Power>
 
-        <Program>5</Program>
-        <Scenario>5</Scenario>
-        <Graphics>3</Graphics>
-        <Sound>3</Sound>
+        <Program>1</Program>
+        <Scenario>2</Scenario>
+        <Graphics>5</Graphics>
+        <Sound>8</Sound>
 
-        <MaxProgram>50</MaxProgram>
-        <MaxScenario>50</MaxScenario>
-        <MaxGraphics>30</MaxGraphics>
-        <MaxSound>30</MaxSound>
+        <MaxProgram>20</MaxProgram>
+        <MaxScenario>20</MaxScenario>
+        <MaxGraphics>40</MaxGraphics>
+        <MaxSound>60</MaxSound>
 
         <Talent>1</Talent>
         <Diligent>1</Diligent>
