@@ -107,7 +107,7 @@ public static class UIHelper
         target.gameObject.SetActive(active);
     }
 
-    // 设置激活状态
+    // 设置图片名字
     public static void SetSpriteName(Transform parent, string path, string name)
     {
         if (parent == null)
@@ -131,5 +131,41 @@ public static class UIHelper
         {
             sp.spriteName = name;
         }
+    }
+
+    /// <summary>
+    /// 获取金额（千位分隔）字符.
+    /// </summary>
+    /// <param name="varNumber"></param>
+    /// <returns></returns>
+    public static string GetSeparatorNumber(int varNumber)
+    {
+        if (varNumber > 0)
+        {
+            return GetSeparatorNumber(varNumber.ToString());
+        }
+        else
+        {
+            varNumber = System.Math.Abs(varNumber);
+
+            return "-" + GetSeparatorNumber(varNumber.ToString());
+        }
+    }
+
+    /// 获取金额（千位分隔）字符
+    public static string GetSeparatorNumber(string varNumberStr)
+    {
+        int tempLength = varNumberStr.Length;
+
+        int temp = 3;
+
+        while (tempLength > temp)
+        {
+            tempLength -= temp;
+
+            varNumberStr = varNumberStr.Insert(tempLength, ",");
+        }
+
+        return varNumberStr;
     }
 }

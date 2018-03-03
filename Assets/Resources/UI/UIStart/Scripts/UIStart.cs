@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GDS;
 
 public class UIStart : MonoBehaviour
 {
@@ -39,10 +40,11 @@ public class UIStart : MonoBehaviour
         // 按右边就退出游戏
         ExData<PE_UpdateBottom> data = new ExData<PE_UpdateBottom>();
         data.data = new PE_UpdateBottom();
+        data.pEventID = (int)PlayerEvent.UpdateBottom;
         data.data.right = "退出游戏";
         data.data.onClickRight = Quit;
 
-        EventManager.GetSinglon().NotifyEvent((int)PlayerEvent.UpdateBottom, data);
+        EventManager.GetSinglon().NotifyEvent(data.pEventID, data);
     }
 
     void OnClickOpenCreate(GameObject go)
@@ -54,7 +56,10 @@ public class UIStart : MonoBehaviour
 
     void OnClickCreate(GameObject go)
     {
-        //创建一家新的公司 -> 名字是新的, 加载默认存档
+        // 创建一家新的公司 -> 名字是新的, 加载默认存档
+        ResourcesManager.GetSingle().LoadNewSava(true);
+        // 新游戏，公司名为新的 
+        Company.GetSingle().mName = mInput.GetComponent<UIInput>().text;
 
         OpenMain();
     }
@@ -62,7 +67,7 @@ public class UIStart : MonoBehaviour
     void OnClickLoad(GameObject go)
     {
         // 加载存档中的公司 
-
+        ResourcesManager.GetSingle().LoadNewSava(false);
         OpenMain();
     }
 

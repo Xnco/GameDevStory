@@ -22,6 +22,7 @@ namespace GDS
     public struct GameGenre
     {
         public int mNum;
+        public int mLevel;
         public string mName;
         public int mCost;
         public List<int> mAmazings;
@@ -32,6 +33,7 @@ namespace GDS
     public struct GameType
     {
         public int mNum;
+        public int mLevel;
         public string mName;
         public int mCost;
     }

@@ -10,6 +10,8 @@ public class ResourcesManager
 {
     private static ResourcesManager instance;
 
+    private RootObject sava;
+
     public static ResourcesManager GetSingle()
     {
         if (instance == null)
@@ -25,9 +27,6 @@ public class ResourcesManager
         LoadPlatform();
         LoadJobInfo();
         LoadStaffInfo();
-
-        // 读取 json
-        LoadNewSava();
     }
 
     Dictionary<int, GameGenre> mAllGenre;
@@ -217,20 +216,151 @@ public class ResourcesManager
 
     }
 
-    public void LoadNewSava()
+    // 加载存档
+    public void LoadNewSava(bool isnewgame)
     {
-        string path = Application.dataPath + "/StreamingAssets/Json/initsava.json";
+#if UNITY_EDITOR
+        string path = Application.dataPath + "/StreamingAssets/Json/{0}.json";
+#elif UNITY_ANDROID
+        string path = Application.streamingAssetsPath + "/Json/{0}.json";
+#endif
+        path = string.Format(path, isnewgame ? "initsava" : "sava");
 
         StreamReader sr = new StreamReader(path);
-        string jsontext = sr.ReadToEnd();
+        string jsontext = sr.ReadToEnd();   // 获取 Json 
+        sava = JsonConvert.DeserializeObject<RootObject>(jsontext);
 
-        JsonParser jp = JsonConvert.DeserializeObject<JsonParser>(jsontext);
-        Debug.Log(jp.Gold);
+        Company company = Company.GetSingle();
+        company.pGold = sava.Gold;
+        company.mName = sava.Name;
+        company.pCurYear = sava.CurYear;
+        company.pCurMonth = sava.CurMonty;
+        company.pCurWeek = sava.CurWeek;
+        company.pCurDay = sava.CurDay;
+
+        // 平台
+        foreach (RootObject.cPlatform item in sava.Platform)
+        {
+            Platform tmpP;
+            if(mAllPlatform.TryGetValue(item.Num, out tmpP))
+            {
+                tmpP.mSales = item.GameCount;
+                company.mPlatform.Add(tmpP);
+            }
+        }
+
+        // 类型
+        foreach (RootObject.cGameGenre item in sava.GameGenre)
+        {
+            GameGenre tmpP;
+            if (mAllGenre.TryGetValue(item.Num, out tmpP))
+            {
+                tmpP.mLevel = item.Level;
+                company.mGenre.Add(tmpP);
+            }
+        }
+
+        // 内容
+        foreach (RootObject.cGameType item in sava.GameType)
+        {
+            GameType tmpP;
+            if (mAllType.TryGetValue(item.Num, out tmpP))
+            {
+                tmpP.mLevel = item.Level;
+                company.mGameType.Add(tmpP);
+            }
+        }
+
+        // 员工
+        foreach (RootObject.cStaff item in sava.Staff)
+        {
+            Staff staff;
+            if (mAllStaff.TryGetValue(item.Num, out staff))
+            {
+                staff.mCurJob = mAllJob[item.JobNum];
+                staff.mCurLv = item.Level;
+                staff.mCurExp = item.Exp;
+
+                // 一个员工有n个职业
+                foreach (var varJob in item.Jobs)
+                {
+                    JobInfo tmpjob;
+                    if (mAllJob.TryGetValue(varJob.Num, out tmpjob))
+                    {
+                        tmpjob.mCurLevel = varJob.Level;
+                        tmpjob.mCurExp = varJob.Exp;
+
+                        staff.mJobs.Add(tmpjob);
+                    }
+                }
+
+                company.mStaffList.Add(staff);
+            }
+        }
+    }
+
+    public void Sava()
+    {
+
     }
 }
 
-public class JsonParser
+
+
+public class RootObject
 {
-    public string Name;
-    public int Gold;
+    public class cJobs
+    {
+        public int Num { get; set; }
+        public int Level { get; set; }
+        public int Exp { get; set; }
+    }
+
+    public class cStaff
+    {
+        public int Num { get; set; }
+        public int JobNum { get; set; }
+        public int Level { get; set; }
+        public int Exp { get; set; }
+        public List<cJobs> Jobs { get; set; }
+    }
+
+    public class cGameGenre
+    {
+        public int Num { get; set; }
+        public int Level { get; set; }
+    }
+
+    public class cGameType
+    {
+        public int Num { get; set; }
+        public int Level { get; set; }
+    }
+
+    public class cPlatform
+    {
+        public int Num { get; set; }
+        public int GameCount { get; set; }
+    }
+
+    public class cGame
+    {
+    }
+
+    public class cFans
+    {
+    }
+
+    public string Name { get; set; }
+    public int CurYear { get; set; }
+    public int CurMonty { get; set; }
+    public int CurWeek { get; set; }
+    public int CurDay { get; set; }
+    public int Gold { get; set; }
+    public List<cStaff> Staff { get; set; }
+    public List<cGameGenre> GameGenre { get; set; }
+    public List<cGameType> GameType { get; set; }
+    public List<cPlatform> Platform { get; set; }
+    public List<cGame> Game { get; set; }
+    public List<cFans> Fans { get; set; }
 }

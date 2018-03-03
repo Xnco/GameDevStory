@@ -12,6 +12,8 @@ namespace GDS
         public List<JobInfo> mJobs;    // 职业生涯
         public float mSalary;      // 薪水
         public float mPower;      // 体力
+        public int mCurLv;  // 当前等级 
+        public int mCurExp;    // 当前经验
 
         // 基本四维
         public float mProgram;     // 编程
@@ -36,6 +38,11 @@ namespace GDS
                 // 显示能力为 人物能力 + 职业加成能力 + ...
                 return mProgram + mCurJob.pProgram;
             }
+        }
+
+        public Staff()
+        {
+            mJobs = new List<JobInfo>();
         }
     }
 
