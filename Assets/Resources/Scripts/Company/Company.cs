@@ -89,7 +89,7 @@ namespace GDS
                 if (mCurMonth > 12)
                 {
                     mCurMonth = 1;
-                    mCurYear++;
+                    pCurYear++;
                 }
 
                 ExData<int> data = new ExData<int>();
@@ -112,7 +112,7 @@ namespace GDS
                 if (mCurWeek > 4)
                 {
                     mCurWeek = 1;
-                    mCurMonth++;
+                    pCurMonth++;
                 }
 
                 ExData<int> data = new ExData<int>();

@@ -16,6 +16,7 @@ namespace GDS
         public int mCreateYear;
         public int mCreateMonth;
         public int mCreateWeek;
+        public int mGameCount; // 游戏开发数量
     }
 
     // 游戏类型

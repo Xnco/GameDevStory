@@ -116,7 +116,7 @@ public class UIMain : MonoBehaviour {
     void OpenMenu()
     {
         UIHelper.SetActive(mMenu, true);
-        Time.timeScale = 0;
+        Time.timeScale = 0; // 打开菜单游戏暂停
     }
 	
     // 销毁解注册

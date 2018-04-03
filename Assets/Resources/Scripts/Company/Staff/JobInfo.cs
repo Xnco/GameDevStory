@@ -19,7 +19,7 @@ namespace GDS
     public struct JobInfo
     {
         public int mCurLevel;     // 等级
-        public float mCurExp;    // 当前职业经验       
+        public int mCurExp;    // 当前职业经验       
 
         public int mNum;    // 职业编号
         public string mName;   
@@ -39,7 +39,7 @@ namespace GDS
             }
         }
 
-        public float pCurExp
+        public int pCurExp
         {
             get
             {

@@ -49,6 +49,7 @@ public class UIBottom : MonoBehaviour
         }
         else
         {
+            UIHelper.SetActive(mLeftBtn, true);
             UIHelper.SetLabel(mLeftBtn, "Label", data.data.left);
             onClickLeft = data.data.onClickLeft;
         }
@@ -60,6 +61,7 @@ public class UIBottom : MonoBehaviour
         }
         else
         {
+            UIHelper.SetActive(mRightBtn, true);
             UIHelper.SetLabel(mRightBtn, "Label", data.data.right);
             onClickRight = data.data.onClickRight;
         }

@@ -10,8 +10,6 @@ public class ResourcesManager
 {
     private static ResourcesManager instance;
 
-    private RootObject sava;
-
     public static ResourcesManager GetSingle()
     {
         if (instance == null)
@@ -29,15 +27,23 @@ public class ResourcesManager
         LoadStaffInfo();
     }
 
+    Company company;
     Dictionary<int, GameGenre> mAllGenre;
     Dictionary<int, GameType> mAllType;
     Dictionary<int, Platform> mAllPlatform;
     Dictionary<int, JobInfo> mAllJob;
     Dictionary<int, Staff> mAllStaff;
 
+#if UNITY_EDITOR
+    string savapath = Application.dataPath + "/StreamingAssets/Json/{0}.json";
+#elif UNITY_ANDROID
+        string savapath = Application.streamingAssetsPath + "/Json/{0}.json";
+#endif
+
     // 读取游戏类型和内容
     public void LoadGameInfo()
     {
+        company = Company.GetSingle();
         mAllGenre = new Dictionary<int, GameGenre>();
         mAllType = new Dictionary<int, GameType>();
 
@@ -219,18 +225,12 @@ public class ResourcesManager
     // 加载存档
     public void LoadNewSava(bool isnewgame)
     {
-#if UNITY_EDITOR
-        string path = Application.dataPath + "/StreamingAssets/Json/{0}.json";
-#elif UNITY_ANDROID
-        string path = Application.streamingAssetsPath + "/Json/{0}.json";
-#endif
-        path = string.Format(path, isnewgame ? "initsava" : "sava");
+        string path = string.Format(savapath, isnewgame ? "initsava" : "sava");
 
         StreamReader sr = new StreamReader(path);
         string jsontext = sr.ReadToEnd();   // 获取 Json 
-        sava = JsonConvert.DeserializeObject<RootObject>(jsontext);
+        RootObject sava = JsonConvert.DeserializeObject<RootObject>(jsontext);
 
-        Company company = Company.GetSingle();
         company.pGold = sava.Gold;
         company.mName = sava.Name;
         company.pCurYear = sava.CurYear;
@@ -238,18 +238,18 @@ public class ResourcesManager
         company.pCurWeek = sava.CurWeek;
         company.pCurDay = sava.CurDay;
 
-        // 平台
+        // 读取平台信息
         foreach (RootObject.cPlatform item in sava.Platform)
         {
             Platform tmpP;
             if(mAllPlatform.TryGetValue(item.Num, out tmpP))
             {
-                tmpP.mSales = item.GameCount;
+                tmpP.mGameCount = item.GameCount;
                 company.mPlatform.Add(tmpP);
             }
         }
 
-        // 类型
+        // 读取游戏类型
         foreach (RootObject.cGameGenre item in sava.GameGenre)
         {
             GameGenre tmpP;
@@ -260,7 +260,7 @@ public class ResourcesManager
             }
         }
 
-        // 内容
+        // 读取游戏内容
         foreach (RootObject.cGameType item in sava.GameType)
         {
             GameType tmpP;
@@ -271,7 +271,7 @@ public class ResourcesManager
             }
         }
 
-        // 员工
+        // 读取员工信息
         foreach (RootObject.cStaff item in sava.Staff)
         {
             Staff staff;
@@ -297,70 +297,103 @@ public class ResourcesManager
                 company.mStaffList.Add(staff);
             }
         }
+
+        // 读取游戏信息 - 暂无
+        //company.mGame = new List<Game>();
+        //foreach (var item in sava.Game)
+        //{
+        //    Game game = new Game();
+
+        //    company.mGame.Add(game);
+        //}
+
+        // 读取粉丝信息 - 暂无
+       
     }
 
+    // 保存
     public void Sava()
     {
+        string path = string.Format(savapath, "sava");
 
+        RootObject root = new RootObject();
+        // 保存基本信息
+        root.Name = company.mName;
+        root.CurYear = company.pCurYear;
+        root.CurMonty = company.pCurMonth;
+        root.CurWeek = company.pCurWeek;
+        root.CurDay = company.pCurDay;
+        root.CurMonty = company.pGold;
+
+        // 保存员工信息
+        root.Staff = new List<RootObject.cStaff>();
+        foreach (var item in company.mStaffList)
+        {
+            RootObject.cStaff staff = new RootObject.cStaff();
+            // 保存基本信息
+            staff.Num = item.mNum;
+            staff.JobNum = item.mCurJob.mNum;
+            staff.Level = item.mCurLv;
+            staff.Exp = item.mCurExp;
+
+            // 保存员工信息
+            staff.Jobs = new List<RootObject.cJobs>();
+            foreach (var jobitem in item.mJobs)
+            {
+                RootObject.cJobs job = new RootObject.cJobs();
+                job.Num = jobitem.mNum;
+                job.Level = jobitem.pCurLevel;
+                job.Exp = jobitem.pCurExp;
+
+                staff.Jobs.Add(job);
+            }
+
+            root.Staff.Add(staff);
+        }
+
+        // 保存游戏类型
+        root.GameGenre = new List<RootObject.cGameGenre>();
+        foreach (var item in company.mGenre)
+        {
+            RootObject.cGameGenre genre = new RootObject.cGameGenre();
+            genre.Num = item.mNum;
+            genre.Level = item.mLevel;
+
+            root.GameGenre.Add(genre);
+        }
+
+        // 保存游戏内容
+        root.GameType = new List<RootObject.cGameType>();
+        foreach (var item in company.mGameType)
+        {
+            RootObject.cGameType type = new RootObject.cGameType();
+            type.Num = item.mNum;
+            type.Level = item.mLevel;
+
+            root.GameType.Add(type);
+        }
+
+        // 保存平台信息
+        root.Platform = new List<RootObject.cPlatform>();
+        foreach (var item in company.mPlatform)
+        {
+            RootObject.cPlatform platform = new RootObject.cPlatform();
+            platform.Num = item.mNum;
+            platform.GameCount = item.mGameCount;
+        }
+
+        // 保存游戏信息 - 暂无
+        //root.Game = new List<RootObject.cGame>();
+        //foreach (var item in company.mGame)
+        //{
+        //    RootObject.cGame game = new RootObject.cGame();
+            
+        //}
+
+        // 保存粉丝信息 - 暂无
+
+        string jsontext = JsonConvert.SerializeObject(root);
+        File.WriteAllText(path, jsontext);
     }
 }
 
-
-
-public class RootObject
-{
-    public class cJobs
-    {
-        public int Num { get; set; }
-        public int Level { get; set; }
-        public int Exp { get; set; }
-    }
-
-    public class cStaff
-    {
-        public int Num { get; set; }
-        public int JobNum { get; set; }
-        public int Level { get; set; }
-        public int Exp { get; set; }
-        public List<cJobs> Jobs { get; set; }
-    }
-
-    public class cGameGenre
-    {
-        public int Num { get; set; }
-        public int Level { get; set; }
-    }
-
-    public class cGameType
-    {
-        public int Num { get; set; }
-        public int Level { get; set; }
-    }
-
-    public class cPlatform
-    {
-        public int Num { get; set; }
-        public int GameCount { get; set; }
-    }
-
-    public class cGame
-    {
-    }
-
-    public class cFans
-    {
-    }
-
-    public string Name { get; set; }
-    public int CurYear { get; set; }
-    public int CurMonty { get; set; }
-    public int CurWeek { get; set; }
-    public int CurDay { get; set; }
-    public int Gold { get; set; }
-    public List<cStaff> Staff { get; set; }
-    public List<cGameGenre> GameGenre { get; set; }
-    public List<cGameType> GameType { get; set; }
-    public List<cPlatform> Platform { get; set; }
-    public List<cGame> Game { get; set; }
-    public List<cFans> Fans { get; set; }
-}
