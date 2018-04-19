@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Platforms>
     <Platform>
+        <Num>201</Num>
         <Name>PC</Name>
         <Co>M$</Co>
+        <License>100</License>
         <Sales>51</Sales>
         <Cost>0</Cost>
-        <Time>00-00-0<Time>
-        <License>100</License>
-        <DevCost>1</DevCost>
-        <Used>0</Used>
+        <DevMult>1</DevMult>
+        <Time>00-00-0</Time>
     </Platform>
 </Platforms>

@@ -5,41 +5,46 @@
         <Name>Coder</Name>
         <MaxLv>5</MaxLv>
         <Info>
-            <Lv1>
+            <Lv>
+                <Level>1</Level>
                 <Exp>100</Exp>
                 <Program>30</Program>
                 <Scenario>20</Scenario>
                 <Graphics>0</Graphics>
                 <Sound>0</Sound>
-            </Lv1>
-            <Lv2>
+            </Lv>
+            <Lv>
+                <Level>2</Level>
                 <Exp>150</Exp>
                 <Program>40</Program>
                 <Scenario>25</Scenario>
                 <Graphics>0</Graphics>
                 <Sound>0</Sound>
-            </Lv2>
-            <Lv3>
+            </Lv>
+            <Lv>
+                <Level>3</Level>
                 <Exp>220</Exp>
                 <Program>55</Program>
                 <Scenario>33</Scenario>
                 <Graphics>5</Graphics>
                 <Sound>5</Sound>
-            </Lv3>
-            <Lv4>
+            </Lv>
+            <Lv>    
+                <Level>4</Level>
                 <Exp>300</Exp>
                 <Program>70</Program>
                 <Scenario>40</Scenario>
                 <Graphics>5</Graphics>
                 <Sound>5</Sound>
-            </Lv4>
-            <Lv5>
+            </Lv>
+            <Lv>
+                <Level>5</Level>
                 <Exp>400</Exp>
                 <Program>100</Program>
                 <Scenario>50</Scenario>
                 <Graphics>10</Graphics>
                 <Sound>10</Sound>
-            </Lv5>
+            </Lv>
         </Info>
     </Job>
     <Job>
@@ -47,41 +52,46 @@
         <Name>Writer</Name>
         <MaxLv>5</MaxLv>
         <Info>
-            <Lv1>
+            <Lv>
+                <Level>1</Level>
                 <Exp>100</Exp>
                 <Program>15</Program>
                 <Scenario>30</Scenario>
                 <Graphics>5</Graphics>
                 <Sound>5</Sound>
-            </Lv1>
-            <Lv2>
+            </Lv>
+            <Lv>
+                <Level>2</Level>
                 <Exp>150</Exp>
                 <Program>20</Program>
                 <Scenario>40</Scenario>
                 <Graphics>7</Graphics>
                 <Sound>7</Sound>
-            </Lv2>
-            <Lv3>
+            </Lv>
+            <Lv>
+                <Level>3</Level>
                 <Exp>220</Exp>
                 <Program>25</Program>
                 <Scenario>50</Scenario>
                 <Graphics>10</Graphics>
                 <Sound>10</Sound>
-            </Lv3>
-            <Lv4>
+            </Lv>
+            <Lv>
+                <Level>4</Level>
                 <Exp>300</Exp>
                 <Program>25</Program>
                 <Scenario>50</Scenario>
                 <Graphics>15</Graphics>
                 <Sound>15</Sound>
-            </Lv4>
-            <Lv5>
+            </Lv>
+            <Lv>
+                <Level>5</Level>
                 <Exp>400</Exp>
                 <Program>35</Program>
                 <Scenario>70</Scenario>
                 <Graphics>25</Graphics>
                 <Sound>25</Sound>
-            </Lv5>
+            </Lv>
         </Info>
     </Job>
     <Job>
@@ -89,41 +99,46 @@
         <Name>Designer</Name>
         <MaxLv>5</MaxLv>
         <Info>
-            <Lv1>
+            <Lv>
+                <Level>1</Level>
                 <Exp>100</Exp>
                 <Program>0</Program>
                 <Scenario>0</Scenario>
                 <Graphics>30</Graphics>
                 <Sound>20</Sound>
-            </Lv1>
-            <Lv2>
+            </Lv>
+            <Lv>
+                <Level>2</Level>
                 <Exp>150</Exp>
                 <Program>0</Program>
                 <Scenario>0</Scenario>
                 <Graphics>40</Graphics>
                 <Sound>25</Sound>
-            </Lv2>
-            <Lv3>
+            </Lv>
+            <Lv>
+                <Level>3</Level>
                 <Exp>220</Exp>
                 <Program>0</Program>
                 <Scenario>0</Scenario>
                 <Graphics>50</Graphics>
                 <Sound>30</Sound>
-            </Lv3>
-            <Lv4>
+            </Lv>
+            <Lv>
+                <Level>4</Level>
                 <Exp>300</Exp>
                 <Program>0</Program>
                 <Scenario>0</Scenario>
                 <Graphics>60</Graphics>
                 <Sound>35</Sound>
-            </Lv4>
-            <Lv5>
+            </Lv>
+            <Lv>
+                <Level>5</Level>
                 <Exp>400</Exp>
                 <Program>5</Program>
                 <Scenario>5</Scenario>
                 <Graphics>75</Graphics>
                 <Sound>50</Sound>
-            </Lv5>
+            </Lv>
         </Info>
     </Job>
     <Job>
@@ -131,41 +146,46 @@
         <Name>Snd_Eng</Name>
         <MaxLv>5</MaxLv>
         <Info>
-            <Lv1>
+            <Lv>
+                <Level>1</Level>
                 <Exp>100</Exp>
                 <Program>0</Program>
                 <Scenario>0</Scenario>
                 <Graphics>20</Graphics>
                 <Sound>30</Sound>
-            </Lv1>
-            <Lv2>
+            </Lv>
+            <Lv>
+                <Level>2</Level>
                 <Exp>150</Exp>
                 <Program>0</Program>
                 <Scenario>0</Scenario>
                 <Graphics>25</Graphics>
                 <Sound>40</Sound>
-            </Lv2>
-            <Lv3>
+            </Lv>
+            <Lv>
+                <Level>3</Level>
                 <Exp>220</Exp>
                 <Program>0</Program>
                 <Scenario>0</Scenario>
                 <Graphics>30</Graphics>
                 <Sound>50</Sound>
-            </Lv3>
-            <Lv4>
+            </Lv>
+            <Lv>
+                <Level>4</Level>
                 <Exp>300</Exp>
                 <Program>0</Program>
                 <Scenario>0</Scenario>
                 <Graphics>35</Graphics>
                 <Sound>60</Sound>
-            </Lv4>
-            <Lv5>
+            </Lv>
+            <Lv>
+                <Level>5</Level>
                 <Exp>400</Exp>
                 <Program>5</Program>
                 <Scenario>5</Scenario>
                 <Graphics>50</Graphics>
                 <Sound>75</Sound>
-            </Lv5>
+            </Lv>
         </Info>
     </Job>
     <Job>

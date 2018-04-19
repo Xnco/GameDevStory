@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StaffList>
+    <Staff>
+        <Num>10001</Num>
+        <Name>张马农</Name>
+        <Salary>10</Salary>
+        <Power>6</Power>
+
+        <Program>5</Program>
+        <Scenario>5</Scenario>
+        <Graphics>3</Graphics>
+        <Sound>3</Sound>
+
+        <MaxProgram>50</MaxProgram>
+        <MaxScenario>50</MaxScenario>
+        <MaxGraphics>30</MaxGraphics>
+        <MaxSound>30</MaxSound>
+
+        <Talent>1</Talent>
+        <Diligent>1</Diligent>
+        <Effect>1</Effect>
+        <Strata>1</Strata>
+    </Staff>
+
+    <Staff>
+        <Num>10002</Num>
+        <Name>李大嘴</Name>
+        <Salary>10</Salary>
+        <Power>6</Power>
+
+        <Program>1</Program>
+        <Scenario>2</Scenario>
+        <Graphics>5</Graphics>
+        <Sound>8</Sound>
+
+        <MaxProgram>20</MaxProgram>
+        <MaxScenario>20</MaxScenario>
+        <MaxGraphics>40</MaxGraphics>
+        <MaxSound>60</MaxSound>
+
+        <Talent>1</Talent>
+        <Diligent>1</Diligent>
+        <Effect>1</Effect>
+        <Strata>1</Strata>
+    </Staff>
+
+</StaffList>
