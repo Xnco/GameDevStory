@@ -325,7 +325,7 @@ public class ResourcesManager
         root.CurMonty = company.pCurMonth;
         root.CurWeek = company.pCurWeek;
         root.CurDay = company.pCurDay;
-        root.CurMonty = company.pGold;
+        root.Gold = company.pGold;
 
         // 保存员工信息
         root.Staff = new List<RootObject.cStaff>();

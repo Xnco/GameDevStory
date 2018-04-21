@@ -47,6 +47,7 @@
             </Lv>
         </Info>
     </Job>
+
     <Job>
         <Num>102</Num>
         <Name>Writer</Name>
@@ -94,6 +95,7 @@
             </Lv>
         </Info>
     </Job>
+
     <Job>
         <Num>103</Num>
         <Name>Designer</Name>
@@ -141,6 +143,7 @@
             </Lv>
         </Info>
     </Job>
+
     <Job>
         <Num>104</Num>
         <Name>Snd_Eng</Name>
@@ -188,6 +191,7 @@
             </Lv>
         </Info>
     </Job>
+
     <Job>
         <Num>105</Num>
         <Name>Director</Name>
@@ -230,6 +234,7 @@
             </Lv5>
         </Info>
     </Job>
+
     <Job>
         <Num>106</Num>
         <Name>Producer</Name>
@@ -272,6 +277,7 @@
             </Lv5>
         </Info>
     </Job>
+
     <Job>
         <Num>107</Num>
         <Name>Hardware</Name>
@@ -314,6 +320,7 @@
             </Lv5>
         </Info>
     </Job>
+    
     <Job>
         <Num>108</Num>
         <Name>Hacker</Name>

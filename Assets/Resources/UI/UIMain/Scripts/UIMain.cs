@@ -12,6 +12,7 @@ public class UIMain : MonoBehaviour {
     Transform mGold;
 
     Transform mMenu;
+    Transform mSecondMenu;
 
     EventManager manager;
     Company company;
@@ -44,15 +45,38 @@ public class UIMain : MonoBehaviour {
 
         mMenu = transform.Find("Menu");
 
-        List<string> menulist = new List<string>() {"Develop", "Staff", "Action", "Info" , "System" };
-        for (int i = 0; i < menulist.Count; i++)
+        //List<string> menulist = new List<string>() {"Develop", "Staff", "Action", "Info" , "System" };
+
+        // 开发按钮
+        Transform dev = mMenu.Find("Grid/Develop");
+        if (dev != null)
         {
-            Transform tmpmenu = mMenu.Find("Grid/" + menulist[i]);
-            if (tmpmenu != null)
+            Transform second = dev.Find("Menu");
+            if (second != null)
             {
-                //UIEventListener.Get(tmpmenu.gameObject).onClick += ;
+                UIEventListener.Get(dev.gameObject).onClick += (go) => {
+                    UIHelper.SetActive(mSecondMenu, false);
+
+                    mSecondMenu = second; // 接受二级菜单
+                    UIHelper.SetActive(second, true);
+                };
+
+                Transform newGame = second.Find("NewGame");
+                if (newGame != null)
+                {
+                    // 打开新游戏界面
+                    //UIEventListener.Get(newGame.gameObject).onClick += (go) => 
+                }
+                Transform outsourcing = second.Find("Outsourcing");
+                if (outsourcing != null)
+                {
+                    // 打开外包界面
+                    //UIEventListener.Get(outsourcing.gameObject).onClick += (go) => 
+                }
             }
         }
+
+
     }
 
     // 注册事件
@@ -145,12 +169,49 @@ public class UIMain : MonoBehaviour {
     }
 
     /// <summary>
+    /// 菜单的Bottom
+    /// </summary>
+    void MenuBottom()
+    {
+        ExData<PE_UpdateBottom> data = new ExData<PE_UpdateBottom>();
+        data.pEventID = (int)PlayerEvent.UpdateBottom;
+        data.data = new PE_UpdateBottom();
+        data.data.left = "保存";
+        data.data.onClickLeft = ResourcesManager.GetSingle().Sava;
+        data.data.right = "返回";
+        data.data.onClickRight = CloseMenu;
+
+        manager.NotifyEvent(data.pEventID, data);
+    }
+
+    /// <summary>
     /// 打开菜单
     /// </summary>
     void OpenMenu()
     {
         UIHelper.SetActive(mMenu, true);
         Time.timeScale = 0; // 打开菜单游戏暂停
+
+        // 打开菜单后 更新底部
+        MenuBottom();
+    }
+
+    /// <summary>
+    /// 关闭菜单
+    /// </summary>
+    void CloseMenu()
+    {
+        if (mSecondMenu == null)
+        {
+            UIHelper.SetActive(mMenu, false);
+            Time.timeScale = 1; // 关闭菜单开始游戏
+            MainBottom(); // 主界面Bottom
+        }
+        else
+        {
+            UIHelper.SetActive(mSecondMenu, false);
+            mSecondMenu = null;
+        }
     }
 	
     // 销毁解注册
