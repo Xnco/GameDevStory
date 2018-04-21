@@ -9,30 +9,6 @@ public class GameManager : MonoBehaviour
     private int mWeek;
     private int mDay;
 
-    void Awake()
-    {
-        // 初始化时间
-    }
-
-    void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-        StartCoroutine(TimeManager());
-    }
-
-    /// <summary>
-    /// 游戏主流程， 一秒一天
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator TimeManager()
-    {
-        while (true)
-        {
-            mDay++;
-            yield return new WaitForSeconds(1);
-        }
-    }
-
     public int pDay
     {
         get
@@ -87,6 +63,26 @@ public class GameManager : MonoBehaviour
         set
         {
             mYear = value;
+        }
+    }
+
+    void Awake()
+    {
+        // 初始化时间
+    }
+
+    void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+        StartCoroutine(TimeManager());
+    }
+
+    IEnumerator TimeManager()
+    {
+        while (true)
+        {
+            mDay++;
+            yield return new WaitForSeconds(1);
         }
     }
 }

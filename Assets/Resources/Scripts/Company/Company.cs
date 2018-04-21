@@ -154,5 +154,15 @@ namespace GDS
                 pCurDay++;
             }
         }
+
+        public void GamePause()
+        {
+            Time.timeScale = 1;
+        }
+
+        public void GameRestart()
+        {
+            Time.timeScale = 0;
+        }
     }
 }

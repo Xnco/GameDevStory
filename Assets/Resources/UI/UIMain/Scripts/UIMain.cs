@@ -75,8 +75,6 @@ public class UIMain : MonoBehaviour {
                 }
             }
         }
-
-
     }
 
     // 注册事件
@@ -204,14 +202,22 @@ public class UIMain : MonoBehaviour {
         if (mSecondMenu == null)
         {
             UIHelper.SetActive(mMenu, false);
-            Time.timeScale = 1; // 关闭菜单开始游戏
-            MainBottom(); // 主界面Bottom
+            BackMain();
         }
         else
         {
             UIHelper.SetActive(mSecondMenu, false);
             mSecondMenu = null;
         }
+    }
+
+    /// <summary>
+    /// 回到主界面
+    /// </summary>
+    public void BackMain()
+    {
+        Time.timeScale = 1; // 关闭菜单开始游戏
+        MainBottom(); // 主界面Bottom
     }
 	
     // 销毁解注册
