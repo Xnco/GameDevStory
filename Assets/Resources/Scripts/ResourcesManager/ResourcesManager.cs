@@ -40,7 +40,9 @@ public class ResourcesManager
         string savapath = Application.streamingAssetsPath + "/Json/{0}.json";
 #endif
 
-    // 读取游戏类型和内容
+    /// <summary>
+    /// 读取游戏类型和内容
+    /// </summary>
     public void LoadGameInfo()
     {
         company = Company.GetSingle();
@@ -225,7 +227,7 @@ public class ResourcesManager
     // 加载存档
     public void LoadNewSava(bool isnewgame)
     {
-        string path = string.Format(savapath, isnewgame ? "initsava" : "sava");
+        string path = string.Format(savapath, isnewgame ? AppConst.initSavaPath : AppConst.savaPath);
 
         StreamReader sr = new StreamReader(path);
         string jsontext = sr.ReadToEnd();   // 获取 Json 

@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
         StartCoroutine(TimeManager());
     }
 
+    /// <summary>
+    /// 游戏主流程， 一秒一天
+    /// </summary>
+    /// <returns></returns>
     IEnumerator TimeManager()
     {
         while (true)

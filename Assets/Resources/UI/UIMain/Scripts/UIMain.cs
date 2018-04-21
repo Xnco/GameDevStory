@@ -43,6 +43,16 @@ public class UIMain : MonoBehaviour {
         UIHelper.SetLabel(mGold, UIHelper.GetSeparatorNumber(company.pGold));
 
         mMenu = transform.Find("Menu");
+
+        List<string> menulist = new List<string>() {"Develop", "Staff", "Action", "Info" , "System" };
+        for (int i = 0; i < menulist.Count; i++)
+        {
+            Transform tmpmenu = mMenu.Find("Grid/" + menulist[i]);
+            if (tmpmenu != null)
+            {
+                //UIEventListener.Get(tmpmenu.gameObject).onClick += ;
+            }
+        }
     }
 
     // 注册事件
@@ -57,6 +67,10 @@ public class UIMain : MonoBehaviour {
         manager.RegisterMsgHandler((int)PlayerEvent.UpdateGold, UpdateGold);
     }
 
+    /// <summary>
+    /// 更新年
+    /// </summary>
+    /// <param name="varData"></param>
     void UpdateYear(BaseEvent varData)
     {
         if (varData == null) return;
@@ -65,6 +79,10 @@ public class UIMain : MonoBehaviour {
         UIHelper.SetLabel(mYear, data.data.ToString());
     }
 
+    /// <summary>
+    /// 更新月
+    /// </summary>
+    /// <param name="varData"></param>
     void UpdateMonth(BaseEvent varData)
     {
         if (varData == null) return;
@@ -73,6 +91,10 @@ public class UIMain : MonoBehaviour {
         UIHelper.SetLabel(mMonth, data.data.ToString());
     }
 
+    /// <summary>
+    /// 更新周
+    /// </summary>
+    /// <param name="varData"></param>
     void UpdateWeek(BaseEvent varData)
     {
         if (varData == null) return;
@@ -81,6 +103,10 @@ public class UIMain : MonoBehaviour {
         UIHelper.SetLabel(mWeek, data.data.ToString());
     }
 
+    /// <summary>
+    /// 更新天的进度
+    /// </summary>
+    /// <param name="varData"></param>
     void UpdateDay(BaseEvent varData)
     {
         if (varData == null) return;
@@ -89,6 +115,10 @@ public class UIMain : MonoBehaviour {
         UIHelper.SetSlider(mDay, data.data/10f);
     }
 
+    /// <summary>
+    /// 更新钱
+    /// </summary>
+    /// <param name="varData"></param>
     void UpdateGold(BaseEvent varData)
     {
         if (varData == null) return;
@@ -98,7 +128,9 @@ public class UIMain : MonoBehaviour {
         UIHelper.SetLabel(mGold, text);
     }
 
-    // 主界面的Bottom
+    /// <summary>
+    /// 主界面的最开始的Bottom
+    /// </summary>
     void MainBottom()
     {
         ExData<PE_UpdateBottom> data = new ExData<PE_UpdateBottom>();
@@ -112,7 +144,9 @@ public class UIMain : MonoBehaviour {
         manager.NotifyEvent(data.pEventID, data);
     }
 
-    // 打开菜单
+    /// <summary>
+    /// 打开菜单
+    /// </summary>
     void OpenMenu()
     {
         UIHelper.SetActive(mMenu, true);
