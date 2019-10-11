@@ -40,7 +40,7 @@ public class UIStart : MonoBehaviour
         // 按右边就退出游戏
         ExData<PE_UpdateBottom> data = new ExData<PE_UpdateBottom>();
         data.data = new PE_UpdateBottom();
-        data.pEventID = (int)PlayerEvent.UpdateBottom;
+        data.pEventID = (int)PlayerEvent.PE_UpdateBottom;
         data.data.right = "退出游戏";
         data.data.onClickRight = Quit;
 
@@ -59,7 +59,7 @@ public class UIStart : MonoBehaviour
         // 创建一家新的公司 -> 名字是新的, 加载默认存档
         ResourcesManager.GetSingle().LoadNewSava(true);
         // 新游戏，公司名为新的 
-        Company.GetSingle().mName = mInput.GetComponent<UIInput>().text;
+        Company.GetSingle().mName = mInput.GetComponent<UIInput>().value;
 
         OpenMain();
     }

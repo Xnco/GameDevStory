@@ -19,16 +19,32 @@ namespace GDS
 
         private Company()
         {
-            manager = EventManager.GetSinglon();
-
             mStaffList = new List<Staff>();
             mGame = new List<Game>();
             mGenre = new List<GameGenre>();
             mGameType = new List<GameType>();
             mPlatform = new List<Platform>();
+
+            manager = EventManager.GetSinglon();
+            AddDelegates();
         }
 
-        EventManager manager;
+        ~Company()
+        {
+            RemoveDelegates();
+        }
+
+        private EventManager manager;
+
+        private void AddDelegates()
+        {
+            manager.RegisterMsgHandler((int)PlayerEvent.PE_MainTimeKey, Timing);
+        }
+
+        private void RemoveDelegates()
+        {
+            manager.UnRegisterMsgHandler((int)PlayerEvent.PE_MainTimeKey, Timing);
+        }
 
         public string mName;
         private int mGold;
@@ -54,7 +70,7 @@ namespace GDS
                 mGold = value;
 
                 ExData<int> data = new ExData<int>();
-                data.pEventID = (int)PlayerEvent.UpdateGold;
+                data.pEventID = (int)PlayerEvent.PE_UpdateGold;
                 data.data = mGold;
                 manager.NotifyEvent(data.pEventID, data);
             }
@@ -71,7 +87,7 @@ namespace GDS
                 mCurYear = value;
 
                 ExData<int> data = new ExData<int>();
-                data.pEventID = (int)PlayerEvent.UpdateYear;
+                data.pEventID = (int)PlayerEvent.PE_UpdateYear;
                 data.data = mCurYear;
                 manager.NotifyEvent(data.pEventID, data);
             }
@@ -93,7 +109,7 @@ namespace GDS
                 }
 
                 ExData<int> data = new ExData<int>();
-                data.pEventID = (int)PlayerEvent.UpdateMonth;
+                data.pEventID = (int)PlayerEvent.PE_UpdateMonth;
                 data.data = mCurMonth;
                 manager.NotifyEvent(data.pEventID, data);
             }
@@ -116,7 +132,7 @@ namespace GDS
                 }
 
                 ExData<int> data = new ExData<int>();
-                data.pEventID = (int)PlayerEvent.UpdateWeek;
+                data.pEventID = (int)PlayerEvent.PE_UpdateWeek;
                 data.data = mCurWeek;
                 manager.NotifyEvent(data.pEventID, data);
             }
@@ -139,30 +155,16 @@ namespace GDS
                 }
 
                 ExData<int> data = new ExData<int>();
-                data.pEventID = (int)PlayerEvent.UpdateDay;
+                data.pEventID = (int)PlayerEvent.PE_UpdateDay;
                 data.data = mCurDay;
                 manager.NotifyEvent(data.pEventID, data);
             }
         }
 
-        // 游戏进程 -> 一秒一天
-        public IEnumerator Timing()
+        // 公司游戏进程 -> MainTime++ = 一天
+        public void Timing(BaseEvent data)
         {
-            while (true)
-            {
-                yield return new WaitForSeconds(1);
-                pCurDay++;
-            }
-        }
-
-        public void GamePause()
-        {
-            Time.timeScale = 1;
-        }
-
-        public void GameRestart()
-        {
-            Time.timeScale = 0;
+            pCurDay++;
         }
     }
 }

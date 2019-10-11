@@ -26,7 +26,7 @@ public class UIBottom : MonoBehaviour
             UIEventListener.Get(mRightBtn.gameObject).onClick += OnClickRight;
         }
 
-        EventManager.GetSinglon().RegisterMsgHandler((int)PlayerEvent.UpdateBottom, UpdateBottom);
+        EventManager.GetSinglon().RegisterMsgHandler((int)PlayerEvent.PE_UpdateBottom, UpdateBottom);
     }
 
     /// <summary>

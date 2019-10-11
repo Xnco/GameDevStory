@@ -16,6 +16,8 @@ public class UIMain : MonoBehaviour {
 
     EventManager manager;
     Company company;
+
+    TimeManager timeManager;
     
     void Start () {
         company = Company.GetSingle();
@@ -27,7 +29,8 @@ public class UIMain : MonoBehaviour {
         MainBottom();
 
         // 开始游戏 / 时间开始流逝
-        StartCoroutine(company.Timing());
+        //StartCoroutine(company.Timing());
+        timeManager = gameObject.AddComponent<TimeManager>();
     }
 
     void Init()
@@ -82,11 +85,11 @@ public class UIMain : MonoBehaviour {
     {
         manager = EventManager.GetSinglon();
 
-        manager.RegisterMsgHandler((int)PlayerEvent.UpdateYear, UpdateYear);
-        manager.RegisterMsgHandler((int)PlayerEvent.UpdateMonth, UpdateMonth);
-        manager.RegisterMsgHandler((int)PlayerEvent.UpdateWeek, UpdateWeek);
-        manager.RegisterMsgHandler((int)PlayerEvent.UpdateDay, UpdateDay);
-        manager.RegisterMsgHandler((int)PlayerEvent.UpdateGold, UpdateGold);
+        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateYear, UpdateYear);
+        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateMonth, UpdateMonth);
+        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateWeek, UpdateWeek);
+        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateDay, UpdateDay);
+        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateGold, UpdateGold);
     }
 
     /// <summary>
@@ -156,7 +159,7 @@ public class UIMain : MonoBehaviour {
     void MainBottom()
     {
         ExData<PE_UpdateBottom> data = new ExData<PE_UpdateBottom>();
-        data.pEventID = (int)PlayerEvent.UpdateBottom;
+        data.pEventID = (int)PlayerEvent.PE_UpdateBottom;
         data.data = new PE_UpdateBottom();
         data.data.left = "保存";
         data.data.onClickLeft = ResourcesManager.GetSingle().Sava;
@@ -172,7 +175,7 @@ public class UIMain : MonoBehaviour {
     void MenuBottom()
     {
         ExData<PE_UpdateBottom> data = new ExData<PE_UpdateBottom>();
-        data.pEventID = (int)PlayerEvent.UpdateBottom;
+        data.pEventID = (int)PlayerEvent.PE_UpdateBottom;
         data.data = new PE_UpdateBottom();
         data.data.left = "保存";
         data.data.onClickLeft = ResourcesManager.GetSingle().Sava;
@@ -188,7 +191,10 @@ public class UIMain : MonoBehaviour {
     void OpenMenu()
     {
         UIHelper.SetActive(mMenu, true);
-        Time.timeScale = 0; // 打开菜单游戏暂停
+
+        // 打开菜单游戏暂停
+        //Time.timeScale = 0; 
+        timeManager.GamePause();
 
         // 打开菜单后 更新底部
         MenuBottom();
@@ -216,17 +222,19 @@ public class UIMain : MonoBehaviour {
     /// </summary>
     public void BackMain()
     {
-        Time.timeScale = 1; // 关闭菜单开始游戏
+        // 关闭菜单开始游戏
+        //Time.timeScale = 1; 
+        timeManager.GameRestart();
         MainBottom(); // 主界面Bottom
     }
 	
     // 销毁解注册
     void OnDestroy()
     {
-        manager.UnRegisterMsgHandler((int)PlayerEvent.UpdateYear, UpdateYear);
-        manager.UnRegisterMsgHandler((int)PlayerEvent.UpdateMonth, UpdateMonth);
-        manager.UnRegisterMsgHandler((int)PlayerEvent.UpdateWeek, UpdateWeek);
-        manager.UnRegisterMsgHandler((int)PlayerEvent.UpdateDay, UpdateDay);
-        manager.UnRegisterMsgHandler((int)PlayerEvent.UpdateGold, UpdateGold);
+        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateYear, UpdateYear);
+        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateMonth, UpdateMonth);
+        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateWeek, UpdateWeek);
+        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateDay, UpdateDay);
+        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateGold, UpdateGold);
     }
 }
