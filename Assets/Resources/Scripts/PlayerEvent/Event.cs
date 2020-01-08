@@ -29,7 +29,7 @@ public class ExData<T> : BaseEvent
     public T data;
 }
 
-public struct PE_UpdateBottom
+public struct PE_UpdateBottomStruct
 {
     public string left;
     public OnClickBottom onClickLeft;

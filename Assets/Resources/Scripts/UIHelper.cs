@@ -3,7 +3,6 @@ using System.Collections;
 
 public static class UIHelper
 {
-    // 改变 Slider 
     public static void SetSlider(Transform parent, string path, float value)
     {
         if (parent == null)
@@ -31,7 +30,6 @@ public static class UIHelper
         tmp.value = value;
     }
 
-    // 改变 Label
     public static void SetLabel(Transform parent, string path, string value)
     {
         if (parent == null)
@@ -85,7 +83,6 @@ public static class UIHelper
         tmp.color = value;
     }
 
-    // 设置激活状态
     public static void SetActive(Transform parent, string path, bool active)
     {
         if (parent == null)
@@ -107,7 +104,6 @@ public static class UIHelper
         target.gameObject.SetActive(active);
     }
 
-    // 设置图片名字
     public static void SetSpriteName(Transform parent, string path, string name)
     {
         if (parent == null)

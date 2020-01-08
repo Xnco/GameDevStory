@@ -5,50 +5,53 @@ using GDS;
 
 public class UIMain : MonoBehaviour {
 
-    Transform mYear;
-    Transform mMonth;
-    Transform mWeek;
-    Transform mDay;
-    Transform mGold;
+    Transform YearLabel;
+    Transform MonthLabel;
+    //Transform WeekLabel;
+    Transform DayLabel;
+    Transform GoldLabel;
 
     Transform mMenu;
     Transform mSecondMenu;
 
     EventManager manager;
-    Company company;
 
-    TimeManager timeManager;
-    
+    private WorldTime worldTime;
+    private Company company;
+
     void Start () {
-        company = Company.GetSingle();
+
+        worldTime = WorldTime.GetSingleon();
+        company = Company.GetSingleon();
+
         // 初始化 UI 
         Init();
         // 初始化事件
-        InitEvent();
+        AddDelegate();
         // 初始化底部 UI
         MainBottom();
+    }
 
-        // 开始游戏 / 时间开始流逝
-        //StartCoroutine(company.Timing());
-        timeManager = gameObject.AddComponent<TimeManager>();
+    // 销毁解注册
+    void OnDestroy()
+    {
+        ClearDelegate();
     }
 
     void Init()
     {
-        mYear = transform.Find("Top/Year");
-        UIHelper.SetLabel(mYear, company.pCurYear.ToString());
-        mMonth = transform.Find("Top/Month");
-        UIHelper.SetLabel(mMonth, company.pCurMonth.ToString());
-        mWeek = transform.Find("Top/Week");
-        UIHelper.SetLabel(mWeek, company.pCurWeek.ToString());
-        mDay = transform.Find("Top/Day");
-        UIHelper.SetSlider(mDay, company.pCurDay/10f);
-        mGold = transform.Find("Top/Gold");
-        UIHelper.SetLabel(mGold, UIHelper.GetSeparatorNumber(company.pGold));
-
+        YearLabel = transform.Find("Top/Year");
+        MonthLabel = transform.Find("Top/Month");
+        //WeekLabel = transform.Find("Top/Week");
+        DayLabel = transform.Find("Top/Day");
+        GoldLabel = transform.Find("Top/Gold");
         mMenu = transform.Find("Menu");
 
         //List<string> menulist = new List<string>() {"Develop", "Staff", "Action", "Info" , "System" };
+        UpdateYear(worldTime.pCurYear);
+        UpdateMonth(worldTime.pCurMonth);
+        UpdateDay(worldTime.pCurDay);
+        UpdateGold(company.pGold);
 
         // 开发按钮
         Transform dev = mMenu.Find("Grid/Develop");
@@ -81,76 +84,114 @@ public class UIMain : MonoBehaviour {
     }
 
     // 注册事件
-    void InitEvent()
+    void AddDelegate()
     {
         manager = EventManager.GetSinglon();
 
-        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateYear, UpdateYear);
-        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateMonth, UpdateMonth);
-        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateWeek, UpdateWeek);
-        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateDay, UpdateDay);
-        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateGold, UpdateGold);
+        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateYear, OnRes_UpdateYear);
+        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateMonth, OnRes_UpdateMonth);
+        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateWeek, OnRes_UpdateWeek);
+        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateDay, OnRes_UpdateDay);
+        manager.RegisterMsgHandler((int)PlayerEvent.PE_UpdateGold, OnRes_UpdateGold);
+    }
+
+    void ClearDelegate()
+    {
+        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateYear, OnRes_UpdateYear);
+        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateMonth, OnRes_UpdateMonth);
+        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateWeek, OnRes_UpdateWeek);
+        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateDay, OnRes_UpdateDay);
+        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateGold, OnRes_UpdateGold);
     }
 
     /// <summary>
     /// 更新年
     /// </summary>
     /// <param name="varData"></param>
-    void UpdateYear(BaseEvent varData)
+    void OnRes_UpdateYear(BaseEvent varData)
     {
         if (varData == null) return;
 
         ExData<int> data = varData as ExData<int>;
-        UIHelper.SetLabel(mYear, data.data.ToString());
+        UpdateYear(data.data);
     }
 
     /// <summary>
     /// 更新月
     /// </summary>
     /// <param name="varData"></param>
-    void UpdateMonth(BaseEvent varData)
+    void OnRes_UpdateMonth(BaseEvent varData)
     {
         if (varData == null) return;
 
         ExData<int> data = varData as ExData<int>;
-        UIHelper.SetLabel(mMonth, data.data.ToString());
+        UpdateMonth(data.data);
     }
 
     /// <summary>
     /// 更新周
     /// </summary>
     /// <param name="varData"></param>
-    void UpdateWeek(BaseEvent varData)
+    void OnRes_UpdateWeek(BaseEvent varData)
     {
         if (varData == null) return;
 
         ExData<int> data = varData as ExData<int>;
-        UIHelper.SetLabel(mWeek, data.data.ToString());
+        UpdateWeek(data.data);
     }
 
     /// <summary>
     /// 更新天的进度
     /// </summary>
     /// <param name="varData"></param>
-    void UpdateDay(BaseEvent varData)
+    void OnRes_UpdateDay(BaseEvent varData)
     {
         if (varData == null) return;
 
         ExData<int> data = varData as ExData<int>;
-        UIHelper.SetSlider(mDay, data.data/10f);
+        UpdateDay(data.data);
     }
 
     /// <summary>
     /// 更新钱
     /// </summary>
     /// <param name="varData"></param>
-    void UpdateGold(BaseEvent varData)
+    void OnRes_UpdateGold(BaseEvent varData)
     {
         if (varData == null) return;
 
         ExData<int> data = varData as ExData<int>;
         string text = UIHelper.GetSeparatorNumber(data.data);
-        UIHelper.SetLabel(mGold, text);
+        UpdateGold(data.data);
+    }
+
+    void UpdateYear(int year)
+    {
+        if(YearLabel != null)
+            UIHelper.SetLabel(YearLabel, year.ToString());
+    }
+
+    void UpdateMonth(int month)
+    {
+        if (MonthLabel != null)
+            UIHelper.SetLabel(MonthLabel, month.ToString());
+    }
+
+    void UpdateWeek(int week)
+    {
+        //UIHelper.SetLabel(WeekLabel, week.ToString());
+    }
+
+    void UpdateDay(int day)
+    {
+        if(DayLabel != null)
+            UIHelper.SetLabel(DayLabel, day.ToString());
+    }
+
+    void UpdateGold(int gold)
+    {
+        if(GoldLabel != null)
+            UIHelper.SetLabel(GoldLabel, gold.ToString());
     }
 
     /// <summary>
@@ -158,9 +199,9 @@ public class UIMain : MonoBehaviour {
     /// </summary>
     void MainBottom()
     {
-        ExData<PE_UpdateBottom> data = new ExData<PE_UpdateBottom>();
+        ExData<PE_UpdateBottomStruct> data = new ExData<PE_UpdateBottomStruct>();
         data.pEventID = (int)PlayerEvent.PE_UpdateBottom;
-        data.data = new PE_UpdateBottom();
+        data.data = new PE_UpdateBottomStruct();
         data.data.left = "保存";
         data.data.onClickLeft = ResourcesManager.GetSingle().Sava;
         data.data.right = "菜单";
@@ -174,9 +215,9 @@ public class UIMain : MonoBehaviour {
     /// </summary>
     void MenuBottom()
     {
-        ExData<PE_UpdateBottom> data = new ExData<PE_UpdateBottom>();
+        ExData<PE_UpdateBottomStruct> data = new ExData<PE_UpdateBottomStruct>();
         data.pEventID = (int)PlayerEvent.PE_UpdateBottom;
-        data.data = new PE_UpdateBottom();
+        data.data = new PE_UpdateBottomStruct();
         data.data.left = "保存";
         data.data.onClickLeft = ResourcesManager.GetSingle().Sava;
         data.data.right = "返回";
@@ -194,7 +235,7 @@ public class UIMain : MonoBehaviour {
 
         // 打开菜单游戏暂停
         //Time.timeScale = 0; 
-        timeManager.GamePause();
+        //timeManager.GamePause();
 
         // 打开菜单后 更新底部
         MenuBottom();
@@ -224,17 +265,7 @@ public class UIMain : MonoBehaviour {
     {
         // 关闭菜单开始游戏
         //Time.timeScale = 1; 
-        timeManager.GameRestart();
+        //timeManager.GameRestart();
         MainBottom(); // 主界面Bottom
-    }
-	
-    // 销毁解注册
-    void OnDestroy()
-    {
-        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateYear, UpdateYear);
-        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateMonth, UpdateMonth);
-        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateWeek, UpdateWeek);
-        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateDay, UpdateDay);
-        manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateGold, UpdateGold);
     }
 }

@@ -77,7 +77,7 @@ public class EventManager
     /// </summary>
     /// <param name="varMsgID"></param>
     /// <param name="varEvent"></param>
-    public void NotifyEvent(int varMsgID, BaseEvent varEvent)
+    public void NotifyEvent(int varMsgID, BaseEvent varEvent = null)
     {
         List<EventFuntion> tmpFuncs = null;
         if (mMsgHandlers.TryGetValue(varMsgID, out tmpFuncs))

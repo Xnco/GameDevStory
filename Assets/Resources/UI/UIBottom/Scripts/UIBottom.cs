@@ -40,7 +40,7 @@ public class UIBottom : MonoBehaviour
             return;
         }
 
-        ExData<PE_UpdateBottom> data = varData as ExData<PE_UpdateBottom>;
+        ExData<PE_UpdateBottomStruct> data = varData as ExData<PE_UpdateBottomStruct>;
 
         if (string.IsNullOrEmpty(data.data.left))
         {

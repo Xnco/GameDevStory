@@ -28,6 +28,7 @@ public class ResourcesManager
     }
 
     Company company;
+    WorldTime worldTime;
     Dictionary<int, GameGenre> mAllGenre;
     Dictionary<int, GameType> mAllType;
     Dictionary<int, Platform> mAllPlatform;
@@ -45,7 +46,8 @@ public class ResourcesManager
     /// </summary>
     public void LoadGameInfo()
     {
-        company = Company.GetSingle();
+        company = Company.GetSingleon();
+        worldTime = WorldTime.GetSingleon();
         mAllGenre = new Dictionary<int, GameGenre>();
         mAllType = new Dictionary<int, GameType>();
 
@@ -235,10 +237,11 @@ public class ResourcesManager
 
         company.pGold = sava.Gold;
         company.mName = sava.Name;
-        company.pCurYear = sava.CurYear;
-        company.pCurMonth = sava.CurMonty;
-        company.pCurWeek = sava.CurWeek;
-        company.pCurDay = sava.CurDay;
+
+        worldTime.pCurYear = sava.CurYear;
+        worldTime.pCurMonth = sava.CurMonty;
+        worldTime.pCurWeek = sava.CurWeek;
+        worldTime.pCurDay = sava.CurDay;
 
         // 读取平台信息
         foreach (RootObject.cPlatform item in sava.Platform)
@@ -321,11 +324,12 @@ public class ResourcesManager
         RootObject root = new RootObject();
         // 保存基本信息
         root.Name = company.mName;
-        root.CurYear = company.pCurYear;
-        root.CurMonty = company.pCurMonth;
-        root.CurWeek = company.pCurWeek;
-        root.CurDay = company.pCurDay;
         root.Gold = company.pGold;
+
+        root.CurYear = worldTime.pCurYear;
+        root.CurMonty = worldTime.pCurMonth;
+        root.CurWeek = worldTime.pCurWeek;
+        root.CurDay = worldTime.pCurDay;
 
         // 保存员工信息
         root.Staff = new List<RootObject.cStaff>();

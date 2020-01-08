@@ -7,6 +7,9 @@ public enum PlayerEvent
     // Bottom
     PE_UpdateBottom,  // 更新底部文字和事件
 
+    // Global Event
+    PE_GameStart,
+
     // Time
     PE_MainTimeKey,
 

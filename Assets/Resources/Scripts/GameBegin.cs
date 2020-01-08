@@ -8,6 +8,9 @@ public class GameBegin : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        GameObject logic = new GameObject("GameLogic");
+        logic.AddComponent<MainLogic>();
+
         WindowManager.GetSingle().OpenBottom("UI/UIBottom/UIBottom");
 
         // 初始化游戏
