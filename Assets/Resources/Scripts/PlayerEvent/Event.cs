@@ -1,18 +1,9 @@
-﻿/*----------------------------------------------------------------
-            // Copyright © 2015 NCSpeedLight
-            // 
-            // FileName: Event.cs
-			// Describle:事件基类
-			// Created By:  meixuan.fu
-			// Date&Time:  2016/1/19 10:03:15
-            // Modify History:
-            //
-//----------------------------------------------------------------*/
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine.Events;
 
 public class BaseEvent
 {
@@ -31,10 +22,12 @@ public class ExData<T> : BaseEvent
 
 public struct PE_UpdateBottomStruct
 {
+    public bool bIsReplace;
+
     public string left;
-    public OnClickBottom onClickLeft;
+    public UnityAction onClickLeft;
 
     public string right;
-    public OnClickBottom onClickRight;
+    public UnityAction onClickRight;
 }
 

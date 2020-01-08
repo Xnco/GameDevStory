@@ -1,14 +1,4 @@
-﻿/*----------------------------------------------------------------
-            // Copyright © 2015 NCSpeedLight
-            // 
-            // FileName: EventManager.cs
-			// Describle:事件处理
-			// Created By:  meixuan.fu
-			// Date&Time:  2016/1/19 10:03:15
-            // Modify History:
-            //
-//----------------------------------------------------------------*/
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -39,8 +39,9 @@ public class UIStart : MonoBehaviour
 
         // 按右边就退出游戏
         ExData<PE_UpdateBottomStruct> data = new ExData<PE_UpdateBottomStruct>();
+        data.pEventID = (int)PlayerEvent.PE_OpenWindow_UpdateBottom;
         data.data = new PE_UpdateBottomStruct();
-        data.pEventID = (int)PlayerEvent.PE_UpdateBottom;
+        data.data.bIsReplace = false;
         data.data.right = "退出游戏";
         data.data.onClickRight = Quit;
 

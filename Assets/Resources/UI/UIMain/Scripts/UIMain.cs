@@ -104,10 +104,6 @@ public class UIMain : MonoBehaviour {
         manager.UnRegisterMsgHandler((int)PlayerEvent.PE_UpdateGold, OnRes_UpdateGold);
     }
 
-    /// <summary>
-    /// 更新年
-    /// </summary>
-    /// <param name="varData"></param>
     void OnRes_UpdateYear(BaseEvent varData)
     {
         if (varData == null) return;
@@ -116,10 +112,6 @@ public class UIMain : MonoBehaviour {
         UpdateYear(data.data);
     }
 
-    /// <summary>
-    /// 更新月
-    /// </summary>
-    /// <param name="varData"></param>
     void OnRes_UpdateMonth(BaseEvent varData)
     {
         if (varData == null) return;
@@ -128,10 +120,6 @@ public class UIMain : MonoBehaviour {
         UpdateMonth(data.data);
     }
 
-    /// <summary>
-    /// 更新周
-    /// </summary>
-    /// <param name="varData"></param>
     void OnRes_UpdateWeek(BaseEvent varData)
     {
         if (varData == null) return;
@@ -140,10 +128,6 @@ public class UIMain : MonoBehaviour {
         UpdateWeek(data.data);
     }
 
-    /// <summary>
-    /// 更新天的进度
-    /// </summary>
-    /// <param name="varData"></param>
     void OnRes_UpdateDay(BaseEvent varData)
     {
         if (varData == null) return;
@@ -152,10 +136,6 @@ public class UIMain : MonoBehaviour {
         UpdateDay(data.data);
     }
 
-    /// <summary>
-    /// 更新钱
-    /// </summary>
-    /// <param name="varData"></param>
     void OnRes_UpdateGold(BaseEvent varData)
     {
         if (varData == null) return;
@@ -200,8 +180,9 @@ public class UIMain : MonoBehaviour {
     void MainBottom()
     {
         ExData<PE_UpdateBottomStruct> data = new ExData<PE_UpdateBottomStruct>();
-        data.pEventID = (int)PlayerEvent.PE_UpdateBottom;
+        data.pEventID = (int)PlayerEvent.PE_OpenWindow_UpdateBottom;
         data.data = new PE_UpdateBottomStruct();
+        data.data.bIsReplace = false;
         data.data.left = "保存";
         data.data.onClickLeft = ResourcesManager.GetSingle().Sava;
         data.data.right = "菜单";
@@ -216,8 +197,9 @@ public class UIMain : MonoBehaviour {
     void MenuBottom()
     {
         ExData<PE_UpdateBottomStruct> data = new ExData<PE_UpdateBottomStruct>();
-        data.pEventID = (int)PlayerEvent.PE_UpdateBottom;
+        data.pEventID = (int)PlayerEvent.PE_OpenWindow_UpdateBottom;
         data.data = new PE_UpdateBottomStruct();
+        data.data.bIsReplace = false;
         data.data.left = "保存";
         data.data.onClickLeft = ResourcesManager.GetSingle().Sava;
         data.data.right = "返回";
@@ -226,46 +208,29 @@ public class UIMain : MonoBehaviour {
         manager.NotifyEvent(data.pEventID, data);
     }
 
-    /// <summary>
-    /// 打开菜单
-    /// </summary>
     void OpenMenu()
     {
         UIHelper.SetActive(mMenu, true);
 
         // 打开菜单游戏暂停
-        //Time.timeScale = 0; 
-        //timeManager.GamePause();
+        MainLogic.GetSingleon().Pause(true);
 
         // 打开菜单后 更新底部
         MenuBottom();
     }
 
-    /// <summary>
-    /// 关闭菜单
-    /// </summary>
     void CloseMenu()
     {
         if (mSecondMenu == null)
         {
             UIHelper.SetActive(mMenu, false);
-            BackMain();
+            manager.NotifyEvent((int)PlayerEvent.PE_CloseWindow_UpdateBottm, null);
+            MainLogic.GetSingleon().Pause(false);
         }
         else
         {
             UIHelper.SetActive(mSecondMenu, false);
             mSecondMenu = null;
         }
-    }
-
-    /// <summary>
-    /// 回到主界面
-    /// </summary>
-    public void BackMain()
-    {
-        // 关闭菜单开始游戏
-        //Time.timeScale = 1; 
-        //timeManager.GameRestart();
-        MainBottom(); // 主界面Bottom
     }
 }

@@ -36,7 +36,7 @@ public class TimeManager : MonoBehaviour
 
     void ClearDelegate()
     {
-
+        eventManager.UnRegisterMsgHandler((int)PlayerEvent.PE_GameStart, OnRes_GameStart);
     }
 
     void Update()
@@ -60,17 +60,19 @@ public class TimeManager : MonoBehaviour
         bGameIsPause = false;
     }
 
-    public void GamePause()
+    public void GamePause(bool bIsPause)
     {
-        PauseTime = Time.time;
-        bGameIsPause = true;
-    }
+        if(bIsPause)
+        {
+            PauseTime = Time.time;
+            bGameIsPause = true;
+        }
+        else
+        {
+            RestartTime = Time.time;
+            bGameIsPause = false;
 
-    public void GameRestart()
-    {
-        RestartTime = Time.time;
-        bGameIsPause = false;
-
-        Debug.Log($"Game restart!! Pause time : {RestartTime - PauseTime}");
+            Debug.Log($"Game restart!! Pause time : {RestartTime - PauseTime}");
+        }
     }
 }
